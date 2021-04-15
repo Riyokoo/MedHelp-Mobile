@@ -1,21 +1,56 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { createAppContainer, createSwitchNavigator } from 'react-navigation'
+import {createStackNavigator } from 'react-navigation-stack'
+import HomeScreen from './screens/HomeScreen'
+import RegisterScreen from './screens/RegisterScreen'
+import LoadingScreen from './screens/LoadingScreen'
+import LoginScreen from './screens/LoginScreen'
+import * as firebase from 'firebase'
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+import { createDrawerNavigator} from 'react-navigation-drawer'
+import { Dimensions } from 'react-native'
+import { Feather } from '@expo/vector-icons';
+
+
+
+
+var firebaseConfig = {
+    apiKey: "AIzaSyBEeiYQmTTWeC1uZSncYnK2cDYWXn4ii50",
+    authDomain: "login-system-1a548.firebaseapp.com",
+    projectId: "login-system-1a548",
+    storageBucket: "login-system-1a548.appspot.com",
+    messagingSenderId: "1039360087466",
+    appId: "1:1039360087466:web:4fb28e9d7bcd95e1b647d3",
+    measurementId: "G-XJ5V9NCK3Z"
+};
+  
+// Initialize Firebase
+
+
+if (!firebase.apps.length) {
+   firebase.initializeApp(firebaseConfig);
+}else {
+   firebase.app(); // if already initialized, use that one
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+const AppStack = createStackNavigator({
+  Home:HomeScreen
+})
+  
+const AuthStack = createStackNavigator({
+  Login: LoginScreen,
+  Register:RegisterScreen,
+})
+
+export default createAppContainer(
+  createSwitchNavigator(
+    {
+      Loading: LoadingScreen,
+      App: AppStack,
+      Auth: AuthStack,
+      
+    },
+    {
+      initialRouteName:"Loading"
+    }
+  )
+)

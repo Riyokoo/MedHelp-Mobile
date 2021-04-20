@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet, TextInput, TouchableOpacity,Image } from 'react-native';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity,Image , TouchableWithoutFeedback , Keyboard } from 'react-native';
 
 import * as firebase from "firebase";
 
@@ -60,10 +60,14 @@ export default class RegisterScreen extends React.Component{
 
     render() {
         return (
+            <TouchableWithoutFeedback onPress={()=>{
+                Keyboard.dismiss();
+                console.log("keyboard dismiss");
+            }}>
             <View style={styles.container}>
                 
                 <View style = {styles.center_things}>
-                    <Image style ={styles.Logo}  source = {require("../MedLife.png")}></Image>
+                    <Image style ={styles.Logo}  source = {require("../assets/MedLife.png")}></Image>
                 </View>
 
                 <Text style={styles.greeting}>{`Bine ai venit la MedHelp! `}</Text>
@@ -124,7 +128,7 @@ export default class RegisterScreen extends React.Component{
                 </TouchableOpacity>
 
             </View>
-            
+            </TouchableWithoutFeedback>
         )
     }
 }

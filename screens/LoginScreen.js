@@ -1,10 +1,7 @@
 import React from "react";
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image, Linking } from 'react-native';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image, Linking , TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons'
 import * as firebase from "firebase";
-
-
-
 
 export default class LoginScreen extends React.Component{
 
@@ -45,6 +42,10 @@ export default class LoginScreen extends React.Component{
 
     render() {
         return (
+            <TouchableWithoutFeedback onPress={()=>{
+                Keyboard.dismiss();
+                console.log("keyboard dismiss");
+            }}>
             <View style = {styles.container}>
                 <Text style={styles.greeting}>{`Bine ai venit ! \n MedHelp `}</Text>
                 
@@ -53,7 +54,7 @@ export default class LoginScreen extends React.Component{
                 </View>
 
                 <View style = {styles.center_things}>
-                    <Image style ={styles.Logo}  source = {require("../MedLife.png")}></Image>
+                    <Image style ={styles.Logo}  source = {require("../assets/MedLife.png")}></Image>
                 </View>
 
                 <View style = {styles.form}>
@@ -100,7 +101,7 @@ export default class LoginScreen extends React.Component{
                 
 
             </View>
-            
+            </TouchableWithoutFeedback>
         )
     }
 }

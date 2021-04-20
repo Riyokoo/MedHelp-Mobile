@@ -9,8 +9,8 @@ import * as firebase from 'firebase'
 import { createDrawerNavigator} from 'react-navigation-drawer'
 import { Dimensions } from 'react-native'
 import { Feather } from '@expo/vector-icons';
-
-
+import Header from './shared/header';
+import React from 'react';
 
 
 var firebaseConfig = {
@@ -33,7 +33,15 @@ if (!firebase.apps.length) {
 }
 
 const AppStack = createStackNavigator({
-  Home:HomeScreen
+  Home:{
+    screen:HomeScreen,
+    navigationOptions: ( { navigation }) => {
+      return {
+         headerTitle: () => (<Header navigation={navigation} title='Home' />),
+      }
+    },
+    },
+  
 })
   
 const AuthStack = createStackNavigator({

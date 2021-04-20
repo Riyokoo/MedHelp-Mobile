@@ -1,17 +1,18 @@
 import React from 'react'
-import { Text, View, StyleSheet } from 'react-native'
+import { Text, View, StyleSheet ,TouchableOpacity} from 'react-native'
 import {Header, Left, Right, Icon} from 'native-base'
+import { MaterialIcons} from '@expo/vector-icons';
+import {globallyStyles} from '../global/styles';
 
 
 export default class PersonalData extends React.Component{
     render() {
-        return (
-            
+        return (           
                 <View style={styles.container}>
-                
-                        <Icon style = {styles.menuButton} name = "menu" onPress = {() => this.props.navigation.openDrawer()}></Icon>
 
-                
+                 <TouchableOpacity onPress = {() => this.props.navigation.openDrawer()} style={globallyStyles.menu} >
+                    <MaterialIcons size={30} name = "menu"  />
+                 </TouchableOpacity>                
                 <View style = {styles.textMessage}>
                     <Text>Date personale</Text>
                 </View>

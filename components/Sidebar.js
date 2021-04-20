@@ -6,8 +6,6 @@ import * as firebase from 'firebase'
 import LogoutButton from '../components/Logout_button'
 
 
-
-
 const Sidebar = props => {
 
     const alert_LogoOut = () => {
@@ -29,20 +27,17 @@ const Sidebar = props => {
             ]
         )
     }
-
-    
+  
     return (
         <ScrollView>
-        <ImageBackground  source = {require("../GREEN.png")} style={{ width: undefined, padding: 10, paddingTop: 10 }}>
+        <ImageBackground  source = {require("../assets/GREEN.png")} style={{ width: undefined, padding: 10, paddingTop: 10 }}>
             <Image source={require("../assets/profilePicture.jpg")} style={styles.profile} />
                  <Text style = {styles.welcomeMessage}>Bine ai revenit, {props.screenProps.displayName} !</Text>
-        </ImageBackground>
-        
-        
+        </ImageBackground>               
         
         <View>
             <DrawerNavigatorItems {...props} ></DrawerNavigatorItems>
-            </View>
+        </View>
             <LogoutButton></LogoutButton>
         </ScrollView>
     )
@@ -58,6 +53,7 @@ const styles = StyleSheet.create({
         flex:1
     },
     welcomeMessage: {
+        fontFamily:'bold',
         fontSize: 17,
         fontWeight:"800",
     },

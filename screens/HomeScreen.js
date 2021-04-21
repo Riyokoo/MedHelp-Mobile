@@ -5,14 +5,14 @@ import { State, TouchableOpacity } from 'react-native-gesture-handler';
 import { createAppContainer,NavigationActions  } from 'react-navigation'
 import { createDrawerNavigator } from 'react-navigation-drawer';
 import { createStackNavigator } from 'react-navigation-stack';
-import {Feather,SimpleLineIcons, FontAwesome5, Octicons} from '@expo/vector-icons'
+import {Feather,SimpleLineIcons, FontAwesome5, Octicons ,AntDesign } from '@expo/vector-icons'
 
 
 import PersonalData from './PersonalData';
 import Profile from './Profile';
 import Sidebar from '../components/Sidebar'
 import AvetiVreoProblema from './AvetiVreoProblema'
-
+import AddData from '../screens/addData';
 
 const AppDrawerNavigator = createDrawerNavigator({
     Profile: {
@@ -33,8 +33,15 @@ const AppDrawerNavigator = createDrawerNavigator({
                 drawerIcon: ({ tintColor }) => <FontAwesome5 name="book-medical" size={24} color="black" />,
             
         }
-        },
-        AvetiVreoProblema: {
+    },
+    AddData:{
+        screen:AddData,
+        navigationOptions:{
+            title:"Introdu date",
+            drawerIcon:({ tintColor }) => <AntDesign name="addfile" size={24} color="black" />
+        }
+    },
+    AvetiVreoProblema: {
             screen: AvetiVreoProblema,
             navigationOptions:{
               
@@ -42,7 +49,7 @@ const AppDrawerNavigator = createDrawerNavigator({
                     drawerIcon:({tintColor}) => <Octicons style = {styles.ReportProbleIcon} name="report" size={24} color="black" onPress = {()=> alert("DA")} ></Octicons>,
                 
             },
-    }
+    },
            
 },
     {

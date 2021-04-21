@@ -1,9 +1,9 @@
 import {StyleSheet} from 'react-native';
 
 export const globallyStyles = StyleSheet.create({
-    menu:{  
-         
+    menu:{          
         marginTop:10,
-    }
+    },
+    
 
 });

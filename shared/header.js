@@ -29,8 +29,8 @@ const styles = StyleSheet.create({
     header:{
         margin:0,
         left:-20,
-        width:400,
-        padding:12,
+        width:450,
+        padding:10,
         flexDirection:'row',
         alignItems:'center',
         justifyContent:'center',

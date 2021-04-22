@@ -24,28 +24,26 @@ export default class Profile extends React.Component{
     render() {
         return (  
             <ImageBackground source={require('../assets/back33.jpg')} style={{flex:1}}>
-
-                  <ScrollView style={styles.container}> 
+              <ScrollView style={styles.container}> 
                               
                     <TouchableOpacity onPress = {() => this.props.navigation.openDrawer()} style={globallyStyles.menu} >
                         <MaterialIcons size={30} name = "menu"  />
                     </TouchableOpacity> 
-                    <View style={styles.userInfoSection}>
-
-            <View style={{flexDirection: 'row', marginTop: 15}}>
-                    <Avatar.Image 
-                        source={require("../assets/profilePicture.jpg")}
-                        size={80}
-                    />
-                    <View style={{marginLeft: 20}}>
-                        <Title style={[styles.title, {
-                        marginTop:15,
-                        marginBottom: 5,
-                        }]}>{this.state.name}</Title>
-                        
+                <View style={styles.userInfoSection}>
+                  <View style={{flexDirection: 'row', marginTop: 15}}>
+                        <Avatar.Image 
+                            source={require("../assets/profilePicture.jpg")}
+                            size={80}
+                        />
+                        <View style={{marginLeft: 20}}>
+                            <Title style={[styles.title, {
+                            marginTop:15,
+                            marginBottom: 5,
+                            }]}>{this.state.name}</Title>
+                            
+                        </View>
                     </View>
-                </View>
-            </View>            
+                </View>            
                 <View style={styles.userInfoSection}>
                     <View style={styles.row}>
                         <Ionicons name="location-outline" size={24} color="black" />
@@ -83,19 +81,19 @@ export default class Profile extends React.Component{
                     <Text style={styles.menuItemText}>Tell Your Friends</Text>
                 </View>
                 </TouchableRipple>
-                <TouchableRipple onPress={() => {}}>
-                <View style={styles.menuItem}>
-                    <Icon name="account-check-outline" color="#FF6347" size={25}/>
-                    <Text style={styles.menuItemText}>Support</Text>
+                  <TouchableRipple onPress={() => {}}>
+                    <View style={styles.menuItem}>
+                        <Icon name="account-check-outline" color="#FF6347" size={25}/>
+                        <Text style={styles.menuItemText}>Support</Text>
+                    </View>
+                  </TouchableRipple>
+                  <TouchableRipple onPress={() => {}}>
+                      <View style={styles.menuItem}>
+                          <Icon name="settings-outline" color="#FF6347" size={25}/>
+                          <Text style={styles.menuItemText}>Settings</Text>
+                      </View>
+                  </TouchableRipple>
                 </View>
-                </TouchableRipple>
-                <TouchableRipple onPress={() => {}}>
-                <View style={styles.menuItem}>
-                    <Icon name="settings-outline" color="#FF6347" size={25}/>
-                    <Text style={styles.menuItemText}>Settings</Text>
-                </View>
-                </TouchableRipple>
-            </View>
                 </ScrollView>
             </ImageBackground>                             
         )

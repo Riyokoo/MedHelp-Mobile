@@ -23,7 +23,7 @@ export default class Profile extends React.Component{
     
     render() {
         return (  
-            <ImageBackground source={require('../assets/back33.jpg')} style={{flex:1}}>
+            <ImageBackground source={require('../assets/GREEN.png')} style={{flex:1}}>
               <ScrollView style={styles.container}> 
                               
                     <TouchableOpacity onPress = {() => this.props.navigation.openDrawer()} style={globallyStyles.menu} >
@@ -33,7 +33,7 @@ export default class Profile extends React.Component{
                   <View style={{flexDirection: 'row', marginTop: 15}}>
                         <Avatar.Image 
                             source={require("../assets/profilePicture.jpg")}
-                            size={80}
+                            size={100}
                         />
                         <View style={{marginLeft: 20}}>
                             <Title style={[styles.title, {

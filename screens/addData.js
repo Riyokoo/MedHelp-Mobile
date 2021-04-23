@@ -16,18 +16,14 @@ export default class AddData extends React.Component{
         tensArt:80,
         puls:40,
         greutate:30.0,
-        glicemie:10,
-        lumina:false,
-        temp:0,
-        gaz:false,
-        umiditate:false,
-        proximitate:false,
+        glicemie:10,       
+        temp:0,      
         error:false,
 
     }
     incarcaDate = () =>{
         console.log("data");
-        console.log(this.state.tensArt + " \n" + this.state.umiditate)
+       
     }
     render(){
         return (
@@ -186,30 +182,13 @@ export default class AddData extends React.Component{
                             borderColor={'#00b894'}
                             />
                             <Text style={{fontSize:16,marginLeft:15,color:'#333'}} >°C</Text>
-                    </View>
-                    <View style={styles.content}>
-                        <MaterialCommunityIcons name="temperature-celsius" size={24} color="black" style={{padding:5}} />
-                        <Text style={{fontSize:16,marginRight:15,color:'#333'}}>Lumina:</Text>
-                        {/* <DropDownPicker 
-                            items={[
-                                {label:'true',value:true, icon: () => <Icon name="flag" size={18} color="#900" />,},
-                                {label:'false',value:false,icon: () => <Icon name="flag" size={18} color="#900" />,},
-                            ]}
-                            defaultValue={this.state.lumina}
-                            containerStyle={{height: 40}}
-                            style={{backgroundColor: '#fafafa'}}
-                            itemStyle={{
-                                justifyContent: 'flex-start'
-                            }}
-                            dropDownStyle={{backgroundColor: '#fafafa'}}
-                            onChangeItem={item => this.setState({
-                                lumina:item
-                            })}
-                        /> */}
-                    </View> 
+                    </View>  
+
                 </ScrollView>
                 <Text style={{fontSize:16,marginLeft:15,color:'red'}}> {this.state.error ? "Ati depasit valoarea maxima" : ""} </Text>
-                <Button title="Incarca datele" color={'#00b894'} onPress={this.incarcaDate} />
+                <TouchableOpacity style={styles.buttonStyle} onPress={() => this.incarcaDate()}>
+                    <Text style = {{alignSelf:'center', color:'#FFFFFF', paddingTop:10,}}>Incarca datele</Text>
+                </TouchableOpacity>
             </ImageBackground>
             </TouchableWithoutFeedback>
         )
@@ -234,5 +213,13 @@ const styles = StyleSheet.create({
         alignItems:'flex-end',      
         padding:6,
         marginLeft:0,
+    },
+    buttonStyle:{
+        alignSelf: 'center',
+        backgroundColor: "#00b894",
+        borderRadius: 6,
+        width: 170,
+        height:40,
+        marginBottom:60,
     }
 });

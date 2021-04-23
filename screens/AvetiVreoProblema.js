@@ -1,5 +1,5 @@
 import React, { Children } from 'react'
-import { Text, View, StyleSheet, TouchableOpacity, TouchableWithoutFeedback, Modal, Keyboard, ScrollView, Touchable } from 'react-native';
+import { Text, View, StyleSheet, TouchableOpacity, TouchableWithoutFeedback, Modal, Keyboard, ScrollView, Touchable ,ImageBackground } from 'react-native';
 import { Icon, Left } from 'native-base'
 import {FontAwesome} from "@expo/vector-icons"
 import { TextInput } from 'react-native-gesture-handler';
@@ -55,9 +55,10 @@ export default class AvetiVreoProblema extends React.Component {
             <TouchableWithoutFeedback onPress={()=>{
                 Keyboard.dismiss();
                 console.log("keyboard dismiss");
-            }}>                                  
+            }}>  
+            <ImageBackground source={require("../assets/GREEN.png")} style={{flex:1}}>
                 <View style = {styles.container}> 
-                 <Formular visible ={this.state.visible}  SchimbaVizibilitate={() => this.SchimbaVizibilitate() } TrimiteFormular={this.TrimiteFormular}/>                                                             
+                    <Formular visible ={this.state.visible}  SchimbaVizibilitate={() => this.SchimbaVizibilitate() } TrimiteFormular={this.TrimiteFormular}/>                                                             
                     <TouchableOpacity onPress = {() => this.props.navigation.openDrawer()} style={globallyStyles.menu} >
                         <MaterialIcons size={30} name = "menu"  />
                     </TouchableOpacity>                
@@ -68,11 +69,10 @@ export default class AvetiVreoProblema extends React.Component {
                 
                     <TouchableOpacity style = {styles.buttonContainer} onPress = {() => this.SchimbaVizibilitate()}>
                          <Text style = {{alignSelf:'center', color:'#FFFFFF', paddingTop:10,}}>Solicita formular</Text>
-                     </TouchableOpacity>
-                    
-                    
-                </View> 
-                </TouchableWithoutFeedback>              
+                    </TouchableOpacity>                                     
+                </View>
+            </ImageBackground>
+            </TouchableWithoutFeedback>              
         )
 
     }

@@ -21,6 +21,7 @@ export default class Profile extends React.Component{
         cnp:'2311122222223'
     }
     
+    componentDidUpdate(){}
     render() {
         return (  
             <ImageBackground source={require('../assets/GREEN.png')} style={{flex:1}}>

@@ -68,7 +68,7 @@ export default class Profile extends React.Component{
                 </View>
        
             <View style={styles.menuWrapper}>
-                <TouchableRipple onPress={() => {}}>
+                {/* <TouchableRipple onPress={() => {}}>
                 <View style={styles.menuItem}>
                     <Icon name="heart-outline" color="#FF6347" size={25}/>
                     <Text style={styles.menuItemText}>Your Favorites</Text>
@@ -92,7 +92,7 @@ export default class Profile extends React.Component{
                           <Icon name="settings-outline" color="#FF6347" size={25}/>
                           <Text style={styles.menuItemText}>Settings</Text>
                       </View>
-                  </TouchableRipple>
+                  </TouchableRipple> */}
                 </View>
                 </ScrollView>
             </ImageBackground>                             

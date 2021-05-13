@@ -3,6 +3,8 @@ import {View,Text,StyleSheet, TouchableWithoutFeedback ,Keyboard, Modal,Touchabl
 import {FontAwesome} from "@expo/vector-icons";
 import { ScrollView } from 'react-native-gesture-handler';
 
+import HeaderData from '../shared/headerData';
+
 export default class DateIstoric extends React.Component{
     constructor(props){
         super(props);
@@ -16,9 +18,7 @@ export default class DateIstoric extends React.Component{
             }}>
             <Modal animationType="slide"  visible={this.props.visibleDateIstoric}>                              
                 <ImageBackground source={require("../assets/GREEN.png")} style={{flex:1}}>
-                <TouchableOpacity  style={{flex:1,flexDirection:'row',marginRight:20, justifyContent:'flex-end', position: 'relative', top: 10,}} onPress = {()=>this.props.changeVisbility() }>
-                    <FontAwesome name="window-close" size={30} color="black"  />
-                </TouchableOpacity>
+                <HeaderData changeVisbility={this.props.changeVisbility} title="Date istorice"/>
                 
                 <ScrollView style={sytles.container}>
                     <View style={sytles.header}>

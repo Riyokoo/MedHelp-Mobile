@@ -12,10 +12,10 @@ export default class HeaderData extends React.Component{
     render(){
         return(
             <ImageBackground source={require('../assets/GREEN.png')} style={styles.header}>                      
-            <View style={{flex:1,flexDirection:'row',justifyContent:'center',margin:10,alignItems:'center'}}>
+            <View style={{flex:1,flexDirection:'row',justifyContent:'space-around',margin:10,alignItems:'center'}}>
                 <Image source={require('../assets/MedLife.png')} style={{width:40,height:40, marginLeft:10, marginRight:20}} />
                 <Text style={styles.headerText}>{this.props.title}</Text>
-                <TouchableOpacity  style={{flex:1,flexDirection:'row',marginTop:-20 , marginRight:25, justifyContent:'flex-end', position: 'relative', top: 10,}} onPress = {()=>this.props.changeVisbility() }>                   
+                <TouchableOpacity  onPress = {()=>this.props.changeVisbility() }>                   
                      <FontAwesome name="window-close" size={30} color="black"  />
                  </TouchableOpacity>
             </View>

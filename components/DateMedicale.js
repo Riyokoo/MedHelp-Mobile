@@ -25,17 +25,17 @@ export default class DateMedicale extends React.Component{
     }
 
     tensiuneArterialaPress = (index) => {
-        console.log("current index:  " + index);     
+       
         this.setState((prevState) =>({
             currentIndex:index,
             medicalData:prevState.medicalData.map(
                 obj => (obj.index === index ? Object.assign(obj,{ extended:!this.state.medicalData[index].extended }) : obj)
             )
         })); 
-       console.log(this.state.medicalData[index].extended)
+      
     }
     pulsPress = (index) =>{
-        console.log("current index:  " + index);
+       
         this.setState((prevState) =>({
             currentIndex:index,
             medicalData:prevState.medicalData.map(
@@ -45,7 +45,7 @@ export default class DateMedicale extends React.Component{
         
     }
     tempPress = (index) =>{
-        console.log("current index:  " + index);
+       
         this.setState((prevState) =>({
             currentIndex:index,
             medicalData:prevState.medicalData.map(
@@ -55,7 +55,7 @@ export default class DateMedicale extends React.Component{
        
     }
     glicemiePress = (index) =>{
-        console.log("current index:  " + index);
+     
         this.setState((prevState) =>({
             currentIndex:index,
             medicalData:prevState.medicalData.map(
@@ -75,7 +75,7 @@ export default class DateMedicale extends React.Component{
         
     }
     consPress = (index) =>{
-        console.log("current index:  " + index);
+       
         this.setState((prevState) =>({
             currentIndex:index,
             medicalData:prevState.medicalData.map(
@@ -123,11 +123,7 @@ export default class DateMedicale extends React.Component{
         </ListItem.Accordion>          
     );
 
-    componentDidUpdate(){
-
-        console.log("update");      
-        console.log("current :"+ this.state.currentIndex); 
-    }
+    componentDidUpdate(){}
     render(){
         return(
             <TouchableWithoutFeedback onPress={()=>{

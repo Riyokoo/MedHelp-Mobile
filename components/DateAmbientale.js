@@ -24,17 +24,17 @@ export default class DateAmbientale extends React.Component{
     }
 
     umiditatePress = (index) => {
-        console.log("current index:  " + index);     
+           
         this.setState((prevState) =>({
             currentIndex:index,
             ambientalData:prevState.ambientalData.map(
                 obj => (obj.index === index ? Object.assign(obj,{ extended:!this.state.ambientalData[index].extended }) : obj)
             )
         })); 
-       console.log(this.state.ambientalData[index].extended)
+      
     }
     tempPress = (index) =>{
-        console.log("current index:  " + index);
+       
         this.setState((prevState) =>({
             currentIndex:index,
             ambientalData:prevState.ambientalData.map(
@@ -44,7 +44,7 @@ export default class DateAmbientale extends React.Component{
         
     }
     gazPress = (index) =>{
-        console.log("current index:  " + index);
+        
         this.setState((prevState) =>({
             currentIndex:index,
             ambientalData:prevState.ambientalData.map(
@@ -54,7 +54,7 @@ export default class DateAmbientale extends React.Component{
        
     }
     prezentaPress = (index) =>{
-        console.log("current index:  " + index);
+       
         this.setState((prevState) =>({
             currentIndex:index,
             ambientalData:prevState.ambientalData.map(

@@ -9,12 +9,14 @@ import Card from '../shared/card';
 import DateMedicale from '../components/DateMedicale';
 import DateAmbientale from '../components/DateAmbientale';
 import DateIstoric from '../components/DateIstoric';
+import DateDiagnotisc from '../components/DateDiagnostic';
 
 export default class PersonalData extends React.Component{
     state = {
         visibleDateMedicale:false,
         visibleDateAmbientale:false,
         visibleDateIstoric:false,
+        visibleDateDiagnostic:false,
         
     }
     date_medicalePress= () =>{
@@ -34,6 +36,9 @@ export default class PersonalData extends React.Component{
     }
     diagnosticPress= () =>{
         console.log("Merge diagnosticul");
+        this.setState({
+            visibleDateDiagnostic:!this.state.visibleDateDiagnostic,
+        });
 
     }
     date_istoricePress= () =>{
@@ -86,7 +91,8 @@ export default class PersonalData extends React.Component{
                                     
                                 </View> 
                             </Card>                                                  
-                            <Card>
+                            <Card>  
+                                <DateDiagnotisc visibleDateDiagnostic={this.state.visibleDateDiagnostic} changeVisbility={() => this.diagnosticPress()} />
                                 <Text style={styles.text}>Vezi diagnostic</Text>
                                 <TouchableOpacity  onPress={() =>this.diagnosticPress()}>
                                     <Image source={require("../assets/medical_.png")}  style={{ width: 130,height:120,marginLeft:20}} />

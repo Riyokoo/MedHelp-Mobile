@@ -1,11 +1,12 @@
 import React from 'react';
-import { View,Text,StyleSheet ,ScrollView ,TouchableOpacity, ImageBackground,Image,Button,Keyboard , TouchableWithoutFeedback } from 'react-native';
+import { View,Text,StyleSheet,ScrollView ,TouchableOpacity, ImageBackground,Image,Button,Keyboard , TouchableWithoutFeedback,Platform} from 'react-native';
 import {MaterialIcons ,AntDesign ,FontAwesome ,MaterialCommunityIcons ,Ionicons} from '@expo/vector-icons';
 import NumericInput from 'react-native-numeric-input'
 import { globallyStyles } from '../global/styles';
 import { Avatar } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/Feather';
 import DropDownPicker from 'react-native-dropdown-picker';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 export default class AddData extends React.Component{
     constructor(props){
@@ -19,12 +20,35 @@ export default class AddData extends React.Component{
         glicemie:10,       
         temp:0,      
         error:false,
+        date:new Date(1598051730000),
+        mode:'date',
+        show:false,
 
     }
     incarcaDate = () =>{
         console.log("data");
        
     }
+    onChangeDate = (event,selectedDate) =>{
+        const currentDate = selectedDate || date;
+        this.setState({
+            mode:Platform.OS === 'android',
+            date:currentDate,
+        });
+    }
+    showMode = (currentMode) =>{
+        this.setState({
+            show:true,
+            mode:currentMode,
+        });
+    };
+    showDatepicker = () => {
+        this.showMode('date');
+    };
+
+    showTimePicker = () =>{
+        this.showMode('time');
+    };
     render(){
         return (
             <TouchableWithoutFeedback onPress={()=>{
@@ -183,7 +207,20 @@ export default class AddData extends React.Component{
                             />
                             <Text style={{fontSize:16,marginLeft:15,color:'#333'}} >°C</Text>
                     </View>  
-
+                    <View style={styles.content}>
+                     <Text style={{fontSize:16,marginLeft:15,color:'#333'}}>{this.state.date}</Text>
+                        {this.state.show && (
+                                    <DateTimePicker
+                                        testID="dateTimePicker"
+                                        value={this.state.date}
+                                        mode={this.state.mode}
+                                        is24Hour={true}
+                                        display="default"
+                                        onChange={()=>this.onChangeDate()}
+                                    />
+                        )}
+                         <Button  onPress={this.showDatepicker} title="Data" />
+                    </View>
                 </ScrollView>
                 <Text style={{fontSize:16,marginLeft:15,color:'red'}}> {this.state.error ? "Ati depasit valoarea maxima" : ""} </Text>
                 <TouchableOpacity style={styles.buttonStyle} onPress={() => this.incarcaDate()}>

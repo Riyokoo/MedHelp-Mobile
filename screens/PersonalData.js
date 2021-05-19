@@ -12,11 +12,15 @@ import DateIstoric from '../components/DateIstoric';
 import DateDiagnotisc from '../components/DateDiagnostic';
 
 export default class PersonalData extends React.Component{
+    constructor(props){
+        super(props);
+         
+    }
     state = {
         visibleDateMedicale:false,
         visibleDateAmbientale:false,
         visibleDateIstoric:false,
-        visibleDateDiagnostic:false,
+        visibleDateDiagnostic:false,     
         
     }
     date_medicalePress= () =>{
@@ -39,6 +43,7 @@ export default class PersonalData extends React.Component{
         this.setState({
             visibleDateDiagnostic:!this.state.visibleDateDiagnostic,
         });
+        console.log("visible diagnostic : " +this.state.visibleDateDiagnostic);
 
     }
     date_istoricePress= () =>{

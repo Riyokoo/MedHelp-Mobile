@@ -49,6 +49,7 @@ export default class AddData extends React.Component{
     showTimePicker = () =>{
         this.showMode('time');
     };
+    componentDidUpdate(){}
     render(){
         return (
             <TouchableWithoutFeedback onPress={()=>{
@@ -208,7 +209,7 @@ export default class AddData extends React.Component{
                             <Text style={{fontSize:16,marginLeft:15,color:'#333'}} >°C</Text>
                     </View>  
                     <View style={styles.content}>
-                     <Text style={{fontSize:16,marginLeft:15,color:'#333'}}>{this.state.date}</Text>
+                     <Text style={{fontSize:16,marginLeft:15,color:'#333'}}>{this.state.date.toLocaleDateString()}</Text>
                         {this.state.show && (
                                     <DateTimePicker
                                         testID="dateTimePicker"
@@ -216,7 +217,7 @@ export default class AddData extends React.Component{
                                         mode={this.state.mode}
                                         is24Hour={true}
                                         display="default"
-                                        onChange={()=>this.onChangeDate()}
+                                        onChange={this.onChangeDate}
                                     />
                         )}
                          <Button  onPress={this.showDatepicker} title="Data" />

@@ -47,15 +47,18 @@ export default class DateDiagnotisc extends React.Component {
                 "Diagnostic acceptat",
                 "Multumim pentru feedback!",
                 [
-                  { text: "OK", onPress: () => 
-                     
-                      this.setState({
-                      accept:true,
-                      visible:false,
-                    })}
+                  {
+                    text: "OK", 
+                    onPress: () => {
+                        this.props.changeVisbility();
+                        this.setState({
+                            accept:true,
+                        })
+                    }
+                  }
                 ]
               );     
-              console.log("accept");
+            
         }
         componentWillMount(){
             this.setState({

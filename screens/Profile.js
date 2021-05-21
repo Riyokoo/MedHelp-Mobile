@@ -1,7 +1,7 @@
 import React from 'react'
-import {Text,View, StyleSheet,TouchableOpacity,ImageBackground ,ScrollView } from 'react-native'
+import {Text,View, StyleSheet,TouchableOpacity,ImageBackground ,ScrollView,Image} from 'react-native'
 import {Header, Left, Right, Icon} from 'native-base'
-import { MaterialIcons ,Ionicons ,AntDesign ,FontAwesome} from '@expo/vector-icons';
+import { MaterialIcons ,Ionicons ,AntDesign ,FontAwesome,Fontisto,MaterialCommunityIcons } from '@expo/vector-icons';
 import { globallyStyles } from '../global/styles';
 import DropDownPicker from 'react-native-dropdown-picker';
 import {
@@ -13,15 +13,24 @@ import {
 
 export default class Profile extends React.Component{
     state = {
-        name : this.props.screenProps.displayName,
+        name : '',
         location:'Romania',
         phone:'+40 072111314141',
-        email: this.props.screenProps.email,
+        email: '',
         sex:'M',
-        cnp:'2311122222223'
+        cnp:'2311122222223',
+        numeMedic:'Nicolae Ioan',
+        numeIngrijitor:'Becali George',
     }
-    
-    componentDidUpdate(){}
+    componentDidMount(){
+      this.setState({
+          name:this.props.screenProps.displayName,
+          email:this.props.screenProps.email,
+      })
+    }
+    componentDidUpdate(){
+      
+    }
     render() {
         return (  
             <ImageBackground source={require('../assets/GREEN.png')} style={{flex:1}}>
@@ -33,7 +42,7 @@ export default class Profile extends React.Component{
                 <View style={styles.userInfoSection}>
                   <View style={{flexDirection: 'row', marginTop: 15}}>
                         <Avatar.Image 
-                            source={require("../assets/profilePicture.jpg")}
+                            source={require("../assets/profilePicture.jpg")}                       
                             size={100}
                         />
                         <View style={{marginLeft: 20}}>
@@ -48,23 +57,38 @@ export default class Profile extends React.Component{
                 <View style={styles.userInfoSection}>
                     <View style={styles.row}>
                         <Ionicons name="location-outline" size={24} color="black" />
+                        <Text style={{fontSize:20,marginLeft:10,color:'#333',fontWeight:'300'}} >Tara</Text>
                         <Text style={{color:"#2c3e50", marginLeft: 20,fontSize:24}}>{this.state.location}</Text>
                     </View>
                     <View style={styles.row}>
                         <AntDesign name="phone" size={24} color="black" />
+                        <Text style={{fontSize:20,marginLeft:10,color:'#333',fontWeight:'300'}} >Telefon</Text>
                         <Text style={{color:"#2c3e50", marginLeft: 20,fontSize:24}}>{this.state.phone}</Text>
                     </View>
                     <View style={styles.row}>
                         <MaterialIcons name="alternate-email" size={24} color="black" />
+                        <Text style={{fontSize:20,marginLeft:10,color:'#333',fontWeight:'300'}} >Email</Text>
                         <Text style={{color:"#2c3e50", marginLeft: 20,fontSize:24}}>{this.state.email}</Text>
                     </View>
                     <View style={styles.row}>
                         <AntDesign name="idcard" size={24} color="black" />
+                        <Text style={{fontSize:20,marginLeft:10,color:'#333',fontWeight:'300'}} >CNP</Text>
                         <Text style={{color:"#2c3e50", marginLeft: 20,fontSize:24}}>{this.state.cnp}</Text>
                     </View>
                     <View style={styles.row}>
                         <FontAwesome name="intersex" size={24} color="black" />
+                        <Text style={{fontSize:20,marginLeft:10,color:'#333',fontWeight:'300'}} >Sex</Text>
                         <Text style={{color:"#2c3e50", marginLeft: 20,fontSize:24}}>{this.state.sex}</Text>
+                    </View>
+                    <View style={styles.row}>
+                        <Fontisto name="doctor" size={24} color="black" />
+                        <Text style={{fontSize:20,marginLeft:10,color:'#333',fontWeight:'300'}} >Nume medic</Text>
+                        <Text style={{color:"#2c3e50", marginLeft: 20,fontSize:24}}>{this.state.numeMedic}</Text>
+                    </View>
+                    <View style={styles.row}>
+                        <MaterialCommunityIcons name="human" size={24} color="black" />
+                        <Text style={{fontSize:20,marginLeft:10,color:'#333',fontWeight:'300'}} >Nume ingrijitor</Text>
+                        <Text style={{color:"#2c3e50", marginLeft: 20,fontSize:24}}>{this.state.numeIngrijitor}</Text>
                     </View>
                 </View>
        
@@ -123,8 +147,11 @@ const styles = StyleSheet.create({
       fontWeight: '500',
     },
     row: {
+      flex:1,
       flexDirection: 'row',
       marginBottom: 10,
+      // justifyContent:'space-between',
+      alignItems:'center',
     },
     infoBoxWrapper: {
       borderBottomColor: '#dddddd',

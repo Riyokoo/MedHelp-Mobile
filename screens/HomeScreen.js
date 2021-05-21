@@ -10,48 +10,53 @@ import {Feather,SimpleLineIcons, FontAwesome5, Octicons ,AntDesign } from '@expo
 
 import PersonalData from './PersonalData';
 import Profile from './Profile';
-import Sidebar from '../components/Sidebar'
-import AvetiVreoProblema from './AvetiVreoProblema'
-import AddData from '../screens/addData';
+import Sidebar from '../components/Sidebar';
+import AvetiVreoProblema from './AvetiVreoProblema';
+import AddData from './addData';
+import Acasa from './Acasa';
 
 const AppDrawerNavigator = createDrawerNavigator({
-    Profile: {
-            screen: Profile,
-            navigationOptions: {
-            
-                title: "Profil",
-                drawerIcon: ({ tintColor }) => <Feather name="user" size={16} color={tintColor}></Feather>,
-               
-           
-        }
-    },
-    PersonalData: {
-        screen: PersonalData,
-        navigationOptions:{
-            
-                title: "Date medicale",
-                drawerIcon: ({ tintColor }) => <FontAwesome5 name="book-medical" size={24} color="black" />,
-            
-        }
-    },
-    AddData:{
-        screen:AddData,
-        navigationOptions:{
-            title:"Introdu date",
-            drawerIcon:({ tintColor }) => <AntDesign name="addfile" size={24} color="black" />
-        }
-    },
-    AvetiVreoProblema: {
-            screen: AvetiVreoProblema,
-            navigationOptions:{
-              
-                    title: "Aveti vreo problema ?",
-                    drawerIcon:({tintColor}) => <Octicons style = {styles.ReportProbleIcon} name="report" size={24} color="black" onPress = {()=> alert("DA")} ></Octicons>,
+        Profile: {
+                screen: Profile,
+                navigationOptions: {          
+                    title: "Profil",
+                    drawerIcon: ({ tintColor }) => <Feather name="user" size={16} color={tintColor}></Feather>,
                 
-            },
+            
+            }
+        },
+        PersonalData: {
+            screen: PersonalData,
+            navigationOptions:{        
+                    title: "Date medicale",
+                    drawerIcon: ({ tintColor }) => <FontAwesome5 name="book-medical" size={24} color="black" />,
+                
+            }
+        },
+        AddData:{
+            screen:AddData,
+            navigationOptions:{
+                title:"Introdu date",
+                drawerIcon:({ tintColor }) => <AntDesign name="addfile" size={24} color="black" />
+            }
+        },
+        AvetiVreoProblema: {
+                screen: AvetiVreoProblema,
+                navigationOptions:{
+                
+                        title: "Aveti vreo problema ?",
+                        drawerIcon:({tintColor}) => <Octicons style = {styles.ReportProbleIcon} name="report" size={24} color="black" onPress = {()=> alert("DA")} ></Octicons>,
+                    
+                },
+        },
+        Acasa: {
+            screen: Acasa,
+            navigationOptions:{
+                title:"Acasa",
+                drawerIcon:({ tintColor }) => <Feather name="home" size={24} color="black" />
+            }
+        },           
     },
-           
-},
     {
         contentComponent: props => <Sidebar {...props} displayName = {props.displayName} email={props.email} />,
     }

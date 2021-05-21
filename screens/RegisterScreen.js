@@ -7,8 +7,6 @@ import axios from 'axios';
 
 export default class RegisterScreen extends React.Component{
     
-
-
     state = {
         nume: "",
         prenume:"",
@@ -155,12 +153,10 @@ export default class RegisterScreen extends React.Component{
             this.setState({ password_eroare: "Cele 2 parole nu coincid !" });
         }
         }
+    
 
-        
-        
-/*
       axios({
-        method: 'post',
+        method: 'POST',
           url: 'http://192.168.0.131:8080/users',
           headers: {
               'Accept': 'application/json',
@@ -174,8 +170,8 @@ export default class RegisterScreen extends React.Component{
                 email: this.state.email,
                 userRole: 'ADMIN'
         })
-        }).then((response)=>console.log(response))
-        */
+        }).then((response)=>console.log(response)).catch((error)=>console.log(error))
+        
      }
     
 

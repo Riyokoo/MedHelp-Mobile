@@ -140,9 +140,7 @@ export default class DateMedicale extends React.Component{
                             keyExtractor={(item) =>item.id}
                             data = {this.state.medicalData} 
                             renderItem={( {item , index} ) => this.renderItem(item,index)}
-                        />
-                    
-                    
+                        />                                     
                 </ScrollView>              
                 </ImageBackground>       
             </Modal>

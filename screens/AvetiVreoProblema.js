@@ -1,11 +1,14 @@
 import React, { Children } from 'react'
-import { Text, View, StyleSheet, TouchableOpacity, TouchableWithoutFeedback, Modal, Keyboard, ScrollView, Touchable } from 'react-native';
+import { Text, View, StyleSheet, TouchableOpacity, TouchableWithoutFeedback, Modal, Keyboard, ScrollView, Touchable ,ImageBackground } from 'react-native';
 import { Icon, Left } from 'native-base'
 import {FontAwesome} from "@expo/vector-icons"
 import { TextInput } from 'react-native-gesture-handler';
 import * as firebase from 'firebase';
 import firestore from '@react-native-firebase/firestore';
+import {MaterialIcons} from '@expo/vector-icons';
+import Formular from '../components/Formular';
 
+import { globallyStyles } from '../global/styles';
 
 /*
 const DismissKeyboard = ({ children }) => (
@@ -33,81 +36,43 @@ export default class AvetiVreoProblema extends React.Component {
         this.setState({ visible: !this.state.visible });
     };
 
-    /*
+    
     TrimiteFormular = () => {
         
-        firestore()
-            .collection('users')
-            .add({
-                name: "Andrei",
-                age:30,
-            })
+        // firestore()
+        //     .collection('users')
+        //     .add({
+        //         name: "Andrei",
+        //         age:30,
+        //     })
 
     }
-    */
+    
 
-    render() {
-        
+    render() {           
 
-        
-
-        return (
-            
-            
-            
-                <View style = {styles.container}>
-
-                
-                   
-                
-                <Modal animationType="slide" visible={this.state.visible}>
-                    
-                    <TouchableOpacity  style={{ position: 'absolute', top: 40, right: 34 }} onPress = {() => this.SchimbaVizibilitate()}>
-                        <FontAwesome name="window-close" size={30} color="black"  />
-                    </TouchableOpacity>
-
-                        <Text style = {styles.titlu}>Formular nou</Text>
-
-                        <View style = {styles.formular}>
-                            
-                                <TextInput style = {styles.numeInput} placeholder = "Nume"></TextInput>
-                            
-                                <TextInput style = {styles.prenumeInput} placeholder = "Prenume"></TextInput>
-
-                            <TextInput
-                                multiline={true}
-                                numberOfLines={10}
-                                style={styles.problemaInput}
-                                placeholder="Ce problema aveti ?"
-                            ></TextInput>
-                            
-                            
-
-                        </View> 
-
-                    <TouchableOpacity style = {styles.TrimiteFormular} onPress = {() => this.TrimiteFormular()}>
-                        <Text style = {{alignSelf:'center', color:"#FFFFFF", padding:10}}>Trimitere formular</Text>
-                    </TouchableOpacity>
-                        
-                    </Modal>
-
-                    <Icon style = {styles.menuButton} name = "menu" onPress = {() => this.props.navigation.openDrawer()}></Icon>
-                    
+        return (    
+            <TouchableWithoutFeedback onPress={()=>{
+                Keyboard.dismiss();
+                console.log("keyboard dismiss");
+            }}>  
+            <ImageBackground source={require("../assets/GREEN.png")} style={{flex:1}}>
+                <View style = {styles.container}> 
+                    <Formular visible ={this.state.visible}  SchimbaVizibilitate={() => this.SchimbaVizibilitate() } TrimiteFormular={this.TrimiteFormular}/>                                                             
+                    <TouchableOpacity onPress = {() => this.props.navigation.openDrawer()} style={globallyStyles.menu} >
+                        <MaterialIcons size={30} name = "menu"  />
+                    </TouchableOpacity>                
                     <View style = {styles.header}>
                         <Text style ={styles.sentence}>Aveti vreo problema legata de sanatate ?</Text>
                         <Text style ={styles.sentence} >Va rugam sa completati formularul de mai jos</Text>
                     </View>
-
                 
                     <TouchableOpacity style = {styles.buttonContainer} onPress = {() => this.SchimbaVizibilitate()}>
                          <Text style = {{alignSelf:'center', color:'#FFFFFF', paddingTop:10,}}>Solicita formular</Text>
-                     </TouchableOpacity>
-                    
-                    
-
+                    </TouchableOpacity>                                     
                 </View>
-
-                
+            </ImageBackground>
+            </TouchableWithoutFeedback>              
         )
 
     }

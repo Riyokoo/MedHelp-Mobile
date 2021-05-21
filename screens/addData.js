@@ -8,6 +8,7 @@ import Icon from 'react-native-vector-icons/Feather';
 import DropDownPicker from 'react-native-dropdown-picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
+import axios from 'axios';
 
 export default class AddData extends React.Component{
     constructor(props){
@@ -29,7 +30,7 @@ export default class AddData extends React.Component{
     }
     incarcaDate = () =>{
         console.log("data");
-        fetch('http://192.168.0.131:8080/users', {
+        axios('http://192.168.0.131:8080/users', {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
@@ -44,7 +45,10 @@ export default class AddData extends React.Component{
                 userRole: "ADMIN"
 
             })
-        }).then((response)=>response.json()).catch((error) => { console.log(error)});
+        })
+        .then((response)=>console.log(response))
+        .catch((error) => { console.log(error)});
+
     }
     onChangeDate = (date) =>{
         const currentDate = date;
@@ -79,11 +83,11 @@ export default class AddData extends React.Component{
                 Keyboard.dismiss();
             }}>
             <ImageBackground source={require("../assets/GREEN.png")} style={{flex:1}}>
-                   
-                    <View style={styles.header}>
                         <TouchableOpacity onPress = {() => this.props.navigation.openDrawer()} style={globallyStyles.menu} >
                             <MaterialIcons size={30} name = "menu"  />
                         </TouchableOpacity> 
+                    <View style={styles.header}>
+                       
                         <Image source={require("../assets/MedLife.png")} style={{flex:1,width:100,height:100,resizeMode:'contain'}}  />
                         <Text style={{fontSize:18,textAlign:'left',color:'#333',letterSpacing:2}}>Introduceti date medicale </Text>
                     </View>

@@ -1,12 +1,13 @@
 import React from 'react';
 import { View,Text,StyleSheet,ScrollView ,TouchableOpacity, ImageBackground,Image,Button,Keyboard , TouchableWithoutFeedback,Platform} from 'react-native';
-import {MaterialIcons ,AntDesign ,FontAwesome ,MaterialCommunityIcons ,Ionicons} from '@expo/vector-icons';
+import {MaterialIcons ,AntDesign ,FontAwesome ,MaterialCommunityIcons ,Ionicons,Entypo} from '@expo/vector-icons';
 import NumericInput from 'react-native-numeric-input'
 import { globallyStyles } from '../global/styles';
 import { Avatar } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/Feather';
 import DropDownPicker from 'react-native-dropdown-picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 
 export default class AddData extends React.Component{
     constructor(props){
@@ -18,23 +19,40 @@ export default class AddData extends React.Component{
         puls:40,
         greutate:30.0,
         glicemie:10,       
-        temp:0,      
+        temp:0, 
+        umiditate:0,     
         error:false,
-        date:new Date(1598051730000),
+        date:new Date(),
         mode:'date',
         show:false,
 
     }
     incarcaDate = () =>{
         console.log("data");
-       
+        fetch('http://192.168.0.131:8080/users', {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                username: "",
+                firstName: "Emanuel",
+                lastName: "Caprariu",
+                password:"123578",
+                email: "manu.caprariu.brediceanu@gmail.com",
+                userRole: "ADMIN"
+
+            })
+        }).then((response)=>response.json()).catch((error) => { console.log(error)});
     }
-    onChangeDate = (event,selectedDate) =>{
-        const currentDate = selectedDate || date;
+    onChangeDate = (date) =>{
+        const currentDate = date;
         this.setState({
             mode:Platform.OS === 'android',
             date:currentDate,
         });
+        this.hideDatePicker();
     }
     showMode = (currentMode) =>{
         this.setState({
@@ -45,33 +63,41 @@ export default class AddData extends React.Component{
     showDatepicker = () => {
         this.showMode('date');
     };
-
+    hideDatePicker = () =>{
+        this.setState({
+            show:false,
+        })
+    }
     showTimePicker = () =>{
         this.showMode('time');
     };
-    componentDidUpdate(){}
+    
+   
     render(){
         return (
             <TouchableWithoutFeedback onPress={()=>{
                 Keyboard.dismiss();
             }}>
             <ImageBackground source={require("../assets/GREEN.png")} style={{flex:1}}>
-                <ScrollView style={styles.container}>
-                    <TouchableOpacity onPress = {() => this.props.navigation.openDrawer()} style={globallyStyles.menu} >
-                        <MaterialIcons size={30} name = "menu"  />
-                    </TouchableOpacity> 
-
+                   
                     <View style={styles.header}>
+                        <TouchableOpacity onPress = {() => this.props.navigation.openDrawer()} style={globallyStyles.menu} >
+                            <MaterialIcons size={30} name = "menu"  />
+                        </TouchableOpacity> 
                         <Image source={require("../assets/MedLife.png")} style={{flex:1,width:100,height:100,resizeMode:'contain'}}  />
                         <Text style={{fontSize:18,textAlign:'left',color:'#333',letterSpacing:2}}>Introduceti date medicale </Text>
                     </View>
+                <ScrollView style={styles.container}>
+                   
                     <View style={styles.content}>
-                        <MaterialCommunityIcons name="temperature-celsius" size={24} color="black" style={{padding:5}} />
-                        <Text style={{fontSize:16,marginRight:12,color:'#333'}}>Temperatura corporala: </Text>
+                        <MaterialCommunityIcons name="temperature-celsius" size={24} color="#2c3e50" style={{padding:5}} />
+                        <Text style={{fontSize:14,marginRight:12,color:'#333'}}>Temperatura corporala: </Text>
+                        <Text style={{fontSize:16,marginLeft:12,color:'#333'}} >°C</Text>
+                        <Text style={{fontSize:16,marginLeft:12,color:'#333'}} > </Text>
                         <NumericInput 
                             type='up-down' 
                             onChange={value => this.setState({tempCorp:value,error:false})} 
-                            containerStyle={{marginLeft:10}}
+                            containerStyle={{marginLeft:12}}
                             minValue={0}
                             maxValue={45}
                             editable={true}
@@ -82,22 +108,23 @@ export default class AddData extends React.Component{
                             iconSize={10}
                             textColor='#333' 
                             iconStyle={{ color: '#333' }}                     
-                            totalWidth={90} 
+                            totalWidth={70} 
                             totalHeight={50} 
                             upDownButtonsBackgroundColor={'#00b894'}
                             borderColor={'#00b894'}
                             />
-                            <Text style={{fontSize:16,marginLeft:12,color:'#333'}} >°C</Text>
+                            
                     </View>
                     <View style={styles.content}>
-                        <AntDesign name="hearto" size={24} color="black" style={{padding:5}} />
-                        <Text style={{fontSize:16,marginRight:2,color:'#333'}}>Tensiunea arteriala:</Text>
+                        <AntDesign name="hearto" size={24} color="#e74c3c" style={{padding:5}} />
+                        <Text style={{fontSize:14,marginRight:2,color:'#333'}}>Tensiunea arteriala:</Text>
+                        <Text style={{fontSize:12,color:'#333',fontWeight:'bold'}}>(Sis/Dia)</Text>
                         <NumericInput 
                             type='up-down' 
                             onChange={value => this.setState({tensArt:value,error:false})} 
                             minValue={20}
                             maxValue={300}
-                            containerStyle={{marginLeft:50}}
+                            containerStyle={{marginLeft:5}}
                             onLimitReached={()=> {this.setState({error:true})}}                         
                             editable={true}
                             value={this.state.tensArt}
@@ -106,21 +133,43 @@ export default class AddData extends React.Component{
                             iconSize={21}
                             textColor='#333' 
                             iconStyle={{ color: '#333' }}                     
-                            totalWidth={90} 
+                            totalWidth={70} 
                             totalHeight={50} 
                             upDownButtonsBackgroundColor={'#00b894'}
                             borderColor={'#00b894'}
                             />
-                            <Text style={{fontSize:16,marginLeft:12,color:'#333'}} >mm Hg</Text>
+                           
+                            <NumericInput 
+                            type='up-down' 
+                            onChange={value => this.setState({tensArt:value,error:false})} 
+                            minValue={20}
+                            maxValue={300}
+                            containerStyle={{marginLeft:1}}
+                            onLimitReached={()=> {this.setState({error:true})}}                         
+                            editable={true}
+                            value={this.state.tensArt}
+                            valueType='real'
+                            step={1}
+                            iconSize={21}
+                            textColor='#333' 
+                            iconStyle={{ color: '#333' }}                     
+                            totalWidth={70} 
+                            totalHeight={50} 
+                            upDownButtonsBackgroundColor={'#00b894'}
+                            borderColor={'#00b894'}
+                            />
+                           
                     </View>
                    
                     <View style={styles.content}>
-                        <FontAwesome name="heartbeat" size={24} color="black" style={{padding:5}} />
-                        <Text style={{fontSize:16,marginRight:15,color:'#333',textAlign:'right'}}>Puls : </Text>
+                        <FontAwesome name="heartbeat" size={24} color="#c0392b" style={{padding:5}} />
+                        <Text style={{fontSize:14,marginRight:15,color:'#333',textAlign:'right'}}>Puls :  </Text>
+                        <Text style={{fontSize:14,color:'#333',fontWeight:'bold'}}>BPM </Text>
+                        <Text style={{fontSize:14,color:'#333',fontWeight:'bold'}}> </Text>
                         <NumericInput 
                             type='up-down' 
                             onChange={value => this.setState({puls:value,error:false})} 
-                            containerStyle={{marginLeft:135}}
+                            containerStyle={{marginLeft:125}}
                             minValue={40}
                             maxValue={200}
                             onLimitReached={()=> {this.setState({error:true})}} 
@@ -131,15 +180,17 @@ export default class AddData extends React.Component{
                             iconSize={21}
                             textColor='#333' 
                             iconStyle={{ color: '#333' }}                     
-                            totalWidth={90} 
+                            totalWidth={70} 
                             totalHeight={50} 
                             upDownButtonsBackgroundColor={'#00b894'}
                             borderColor={'#00b894'}
                             />                          
                     </View>
                     <View style={styles.content}>
-                        <MaterialCommunityIcons name="weight-kilogram" size={24} color="black"  style={{padding:5}}/>
-                        <Text style={{fontSize:16,marginRight:2,color:'#333'}}>Greutatea :</Text>
+                        <MaterialCommunityIcons name="weight-kilogram" size={24} color="#2c3e50"  style={{padding:5}}/>
+                        <Text style={{fontSize:14,marginRight:2,color:'#333'}}>Greutatea :</Text>
+                        <Text style={{fontSize:14,marginLeft:15,color:'#333'}} ></Text>
+                        <Text style={{fontSize:14,marginLeft:15,color:'#333',fontWeight:'bold'}} >KG</Text>
                         <NumericInput 
                             type='up-down' 
                             onChange={value => this.setState({greutate:value,error:false})} 
@@ -154,16 +205,17 @@ export default class AddData extends React.Component{
                             iconSize={21}
                             textColor='#333' 
                             iconStyle={{ color: '#333' }}                     
-                            totalWidth={90} 
+                            totalWidth={70} 
                             totalHeight={50} 
                             upDownButtonsBackgroundColor={'#00b894'}
                             borderColor={'#00b894'}
                             />
-                            <Text style={{fontSize:16,marginLeft:15,color:'#333'}} >KG</Text>
+                            
                     </View>
                     <View style={styles.content}>
-                        <Ionicons name="water" size={24} color="black" style={{padding:5}} />
-                        <Text style={{fontSize:16,marginRight:2,color:'#333'}}>Glicemie :</Text>
+                        <Ionicons name="water" size={24} color="#d35400" style={{padding:5}} />
+                        <Text style={{fontSize:14,marginRight:2,color:'#333'}}>Glicemie :</Text>
+                        <Text style={{fontSize:14,marginRight:2,color:'#333',fontWeight:'bold'}}>mg/DL</Text>
                         <NumericInput 
                             type='up-down' 
                             onChange={value => this.setState({glicemie:value,error:false})} 
@@ -178,7 +230,7 @@ export default class AddData extends React.Component{
                             iconSize={21}
                             textColor='#333' 
                             iconStyle={{ color: '#333' }}                     
-                            totalWidth={90} 
+                            totalWidth={70} 
                             totalHeight={50} 
                             upDownButtonsBackgroundColor={'#00b894'}
                             borderColor={'#00b894'}
@@ -186,8 +238,9 @@ export default class AddData extends React.Component{
                             
                     </View>
                     <View style={styles.content}>
-                        <MaterialCommunityIcons name="temperature-celsius" size={24} color="black" style={{padding:5}} />
-                        <Text style={{fontSize:16,marginRight:15,color:'#333'}}>Temperatura ambientala:</Text>
+                        <MaterialCommunityIcons name="temperature-celsius" size={24} color="#f1c40f" style={{padding:5}} />
+                        <Text style={{fontSize:14,marginRight:15,color:'#333'}}>Temperatura ambientala:</Text>
+                        <Text style={{fontSize:14,marginLeft:15,color:'#333',fontWeight:'bold'}} >°C</Text>
                         <NumericInput 
                             type='up-down' 
                             onChange={value => this.setState({temp:value,error:false})} 
@@ -201,26 +254,53 @@ export default class AddData extends React.Component{
                             iconSize={21}
                             textColor='#333' 
                             iconStyle={{ color: '#333' }}                     
-                            totalWidth={90} 
+                            totalWidth={70} 
+                            totalHeight={50} 
+                            containerStyle={{marginLeft:12}}
+                            upDownButtonsBackgroundColor={'#00b894'}
+                            borderColor={'#00b894'}
+                            />
+                            
+                    </View>  
+                    <View style={styles.content}>
+                        <Entypo name="water" size={24} color="blue" style={{padding:5}} />
+                        <Text style={{fontSize:14,marginRight:2,color:'#333'}}>Umiditatea :</Text>
+                        <Text style={{fontSize:14,marginLeft:15,color:'#333'}} ></Text>
+                        <Text style={{fontSize:14,marginLeft:15,color:'#333',fontWeight:'bold'}} >%</Text>
+                        <NumericInput 
+                            type='up-down' 
+                            onChange={value => this.setState({umiditate:value,error:false})} 
+                            minValue={0}
+                            maxValue={100}
+                            containerStyle={{marginLeft:110}}
+                            editable={true}
+                            onLimitReached={()=> {this.setState({error:true})}} 
+                            value={this.state.greutate}
+                            valueType='real'
+                            step={1}
+                            iconSize={21}
+                            textColor='#333' 
+                            iconStyle={{ color: '#333' }}                     
+                            totalWidth={70} 
                             totalHeight={50} 
                             upDownButtonsBackgroundColor={'#00b894'}
                             borderColor={'#00b894'}
                             />
-                            <Text style={{fontSize:16,marginLeft:15,color:'#333'}} >°C</Text>
-                    </View>  
-                    <View style={styles.content}>
-                     <Text style={{fontSize:16,marginLeft:15,color:'#333'}}>{this.state.date.toLocaleDateString()}</Text>
-                        {this.state.show && (
-                                    <DateTimePicker
-                                        testID="dateTimePicker"
-                                        value={this.state.date}
-                                        mode={this.state.mode}
-                                        is24Hour={true}
-                                        display="default"
-                                        onChange={this.onChangeDate}
-                                    />
-                        )}
-                         <Button  onPress={this.showDatepicker} title="Data" />
+                            
+                    </View>
+                    <View style={[styles.content],{flex:1,flexDirection:'row',justifyContent:'space-around'}}>
+                     <MaterialIcons name="date-range" size={24} color="#2c3e50" style={{marginLeft:-7}} />   
+                     <Text style={{fontSize:14,marginLeft:10,color:'#333'}}>Data</Text>   
+                     <Text style={{fontSize:14,marginLeft:40,color:'#333',fontWeight:'bold'}}>{this.state.date.toLocaleDateString()}</Text>                      
+                        <DateTimePickerModal
+                            isVisible={this.state.show}
+                            mode="date"
+                            onConfirm={this.onChangeDate}
+                            onCancel={this.hideDatePicker}   
+                                
+                        />
+                        <Text style={{fontSize:14,marginLeft:15,color:'#333',fontWeight:'bold'}} ></Text>
+                        <Button color={'#00b894'} onPress={this.showDatepicker} title="Data" />
                     </View>
                 </ScrollView>
                 <Text style={{fontSize:16,marginLeft:15,color:'red'}}> {this.state.error ? "Ati depasit valoarea maxima" : ""} </Text>
@@ -239,7 +319,7 @@ const styles = StyleSheet.create({
         
     },
     header:{
-        flex:1,
+        flex:0,
         padding:10,
         flexDirection:'row',
         justifyContent:'center',
@@ -248,7 +328,8 @@ const styles = StyleSheet.create({
     content:{
         flex:1,
         flexDirection:'row',
-        alignItems:'flex-end',      
+        alignItems:'flex-end',
+        justifyContent:'space-between',      
         padding:6,
         marginLeft:0,
     },

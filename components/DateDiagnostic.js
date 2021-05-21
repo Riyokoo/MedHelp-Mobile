@@ -55,7 +55,7 @@ export default class DateDiagnotisc extends React.Component {
                     })}
                 ]
               );     
-             
+              console.log("accept");
         }
         componentWillMount(){
             this.setState({
@@ -66,8 +66,8 @@ export default class DateDiagnotisc extends React.Component {
         componentDidUpdate(){
             
             console.log("visible from modal :"+ this.state.visible);
-            console.log("accept : " + this.state.accept);
            
+  
         }
       
         render = () =>{

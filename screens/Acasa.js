@@ -17,7 +17,7 @@ export default class Acasa extends React.Component{
                         <MaterialIcons size={30} name = "menu"  />
                     </TouchableOpacity> 
                     <View style={styles.header}>
-                        <Text style={styles.headerText}>Bine ati acasa</Text>
+                        <Text style={styles.headerText}>MedHelp - App Acasa</Text>
                     </View>
                     <ScrollView style={styles.container}>
                         <View style={styles.item}>

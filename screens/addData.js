@@ -16,12 +16,13 @@ export default class AddData extends React.Component{
     }
     state = {
         tempCorp:35,
-        tensArt:80,
+        tensMare:80,
+        tensMica:80,
         puls:40,
         greutate:30.0,
         glicemie:10,       
-        temp:0, 
-        umiditate:0,     
+        temp:20, 
+        umiditate:20,     
         error:false,
         date:new Date(),
         mode:'date',
@@ -29,25 +30,54 @@ export default class AddData extends React.Component{
 
     }
     incarcaDate = () =>{
+
         console.log("data");
-        axios('http://192.168.0.131:8080/users', {
-            method: 'POST',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                username: "",
+        // axios.interceptors.request.use(request => {
+        //     console.log('Starting Request', JSON.stringify(request, null, 2))
+        //     return request
+        // });
+        // axios('http://192.168.0.183:8080/sensors/1', {
+        //     method: 'POST',
+        //     headers: {
+        //         'Accept': 'application/json',
+        //         'Content-Type':'application/json'
+        //     },
+        //     body: JSON.stringify({
+        //         bloodPressureDiastolic:this.state.tensMare                      
+        //     }),
+            
+           
+        // })
+        // .then((response)=>console.log(response)
+        // .catch((error) => { console.log(error)}));
+
+
+        //incarcare in functie de emailul pacientului 
+        const options = {   headers: {'Accept':'application/json','Content-Type':'application/json'} }; 
+        axios.post('http://192.168.0.183:8080/sensors/1',
+         JSON.stringify({
+            ambientTemperature:this.state.temp,   
+            bloodPressureDiastolic:this.state.tensMare,
+            bloodPressureSystolic:this.state.tensMica,
+            bodyTemperature:this.state.tempCorp,
+            bodyWeight:this.state.greutate,          
+            // date: this.state.date.getDay() +"-"+this.state.date.getMonth()+"-"+this.state.date.getFullYear(),
+            glycemia:this.state.glicemie,
+            // humidity:this.state.umiditate,
+            // pulse:this.state.puls,         
+        }), options)
+        .then((response) =>console.log(response.data))
+        .catch((error) => console.log(error));
+         
+        
+        /**
+         *  username: "",
                 firstName: "Emanuel",
                 lastName: "Caprariu",
                 password:"123578",
                 email: "manu.caprariu.brediceanu@gmail.com",
                 userRole: "ADMIN"
-
-            })
-        })
-        .then((response)=>console.log(response))
-        .catch((error) => { console.log(error)});
+        */
 
     }
     onChangeDate = (date) =>{
@@ -105,7 +135,7 @@ export default class AddData extends React.Component{
                             minValue={0}
                             maxValue={45}
                             editable={true}
-                            onLimitReached={()=> {this.setState({error:true})}} 
+                            // onLimitReached={()=> {this.setState({error:true})}} 
                             value={this.state.tempCorp}
                             valueType='real'
                             step={0.1}
@@ -125,13 +155,13 @@ export default class AddData extends React.Component{
                         <Text style={{fontSize:12,color:'#333',fontWeight:'bold'}}>(Sis/Dia)</Text>
                         <NumericInput 
                             type='up-down' 
-                            onChange={value => this.setState({tensArt:value,error:false})} 
-                            minValue={20}
+                            onChange={value => this.setState({tensMare:value,error:false})} 
+                            minValue={0}
                             maxValue={300}
                             containerStyle={{marginLeft:5}}
-                            onLimitReached={()=> {this.setState({error:true})}}                         
+                            // onLimitReached={()=> {this.setState({error:true})}}                         
                             editable={true}
-                            value={this.state.tensArt}
+                            value={this.state.tensMare}
                             valueType='real'
                             step={1}
                             iconSize={21}
@@ -145,13 +175,13 @@ export default class AddData extends React.Component{
                            
                             <NumericInput 
                             type='up-down' 
-                            onChange={value => this.setState({tensArt:value,error:false})} 
-                            minValue={20}
+                            onChange={value => this.setState({tensMica:value,error:false})} 
+                            minValue={0}
                             maxValue={300}
                             containerStyle={{marginLeft:1}}
-                            onLimitReached={()=> {this.setState({error:true})}}                         
+                            // onLimitReached={()=> {this.setState({error:true})}}                         
                             editable={true}
-                            value={this.state.tensArt}
+                            value={this.state.tensMica}
                             valueType='real'
                             step={1}
                             iconSize={21}
@@ -174,9 +204,9 @@ export default class AddData extends React.Component{
                             type='up-down' 
                             onChange={value => this.setState({puls:value,error:false})} 
                             containerStyle={{marginLeft:125}}
-                            minValue={40}
+                            minValue={0}
                             maxValue={200}
-                            onLimitReached={()=> {this.setState({error:true})}} 
+                            // onLimitReached={()=> {this.setState({error:true})}} 
                             editable={true}
                             value={this.state.puls}
                             valueType='integer'
@@ -198,11 +228,11 @@ export default class AddData extends React.Component{
                         <NumericInput 
                             type='up-down' 
                             onChange={value => this.setState({greutate:value,error:false})} 
-                            minValue={30}
+                            minValue={0}
                             maxValue={200}
                             containerStyle={{marginLeft:110}}
                             editable={true}
-                            onLimitReached={()=> {this.setState({error:true})}} 
+                            // onLimitReached={()=> {this.setState({error:true})}} 
                             value={this.state.greutate}
                             valueType='real'
                             step={1}
@@ -223,10 +253,10 @@ export default class AddData extends React.Component{
                         <NumericInput 
                             type='up-down' 
                             onChange={value => this.setState({glicemie:value,error:false})} 
-                            minValue={10}
+                            minValue={0}
                             containerStyle={{marginLeft:120}}
                             maxValue={400}
-                            onLimitReached={()=> {this.setState({error:true})}} 
+                            // onLimitReached={()=> {this.setState({error:true})}} 
                             editable={true}
                             value={this.state.glicemie}
                             valueType='integer'
@@ -248,10 +278,10 @@ export default class AddData extends React.Component{
                         <NumericInput 
                             type='up-down' 
                             onChange={value => this.setState({temp:value,error:false})} 
-                            minValue={5}
+                            minValue={0}
                             maxValue={90}
                             editable={true}
-                            onLimitReached={()=> {this.setState({error:true})}} 
+                            // onLimitReached={()=> {this.setState({error:true})}} 
                             value={this.state.temp}
                             valueType='integer'
                             step={1}
@@ -278,7 +308,7 @@ export default class AddData extends React.Component{
                             maxValue={100}
                             containerStyle={{marginLeft:110}}
                             editable={true}
-                            onLimitReached={()=> {this.setState({error:true})}} 
+                            // onLimitReached={()=> {this.setState({error:true})}} 
                             value={this.state.greutate}
                             valueType='real'
                             step={1}

@@ -84,9 +84,11 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     sentence: {
-        alignSelf: 'center',
+        textAlign: 'center',
         fontWeight:"800",
-        
+        color:'#333',
+        fontSize:16,
+        letterSpacing:2,
     },
     header: {
         marginTop:200,

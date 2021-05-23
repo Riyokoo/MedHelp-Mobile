@@ -1,5 +1,5 @@
 import React, { Children } from 'react'
-import { Text, View, StyleSheet, TouchableOpacity, TouchableWithoutFeedback, Modal, Keyboard, ScrollView, Touchable } from 'react-native';
+import { Text, View, StyleSheet, TouchableOpacity, TouchableWithoutFeedback, Modal, Keyboard, ScrollView, Touchable,Alert } from 'react-native';
 import { Icon, Left } from 'native-base'
 import {FontAwesome} from "@expo/vector-icons"
 import { TextInput } from 'react-native-gesture-handler';
@@ -7,8 +7,34 @@ import * as firebase from 'firebase';
 import firestore from '@react-native-firebase/firestore';
 import { cos } from 'react-native-reanimated';
 
-export default class Formular extends React.Component {
+import HeaderData from '../shared/headerData';
 
+export default class Formular extends React.Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            accept: false,
+        }
+    }
+    trimiteFormular = () =>{
+
+        //aici vom face si post in tabele
+        Alert.alert(
+            "Trimitere formular",
+            "Formularul dvs a fost trimis cu succes!",
+            [
+            {
+                text: "OK", 
+                onPress: () => {
+                    this.props.SchimbaVizibilitate();
+                    this.setState({
+                        accept:true,
+                    })
+                }
+            }
+            ]
+        );  
+    }
 
 render(){
     return(
@@ -16,33 +42,29 @@ render(){
             Keyboard.dismiss();
             console.log("keyboard dismiss");
         }}>
-        <Modal animationType="slide" visible={this.props.visible}>
-                    
-        <TouchableOpacity  style={{ position: 'absolute', top: 40, right: 34 }} onPress = {this.props.SchimbaVizibilitate}>
-            <FontAwesome name="window-close" size={30} color="black"  />
-        </TouchableOpacity>
-    
-            <Text style = {styles.titlu}>Formular nou</Text>
-    
+        <Modal animationType="slide"  visible={this.props.visible}>
+
+            <HeaderData  changeVisbility ={this.props.SchimbaVizibilitate} title="Formular nou"/>        
+           
             <View style = {styles.formular}>
                 
-                    <TextInput style = {styles.numeInput} placeholder = "Nume"></TextInput>
-                
-                    <TextInput style = {styles.prenumeInput} placeholder = "Prenume"></TextInput>
+                <TextInput style = {styles.numeInput} placeholder = "Nume"></TextInput>               
+                <TextInput style = {styles.prenumeInput} placeholder = "Prenume"></TextInput>
     
                 <TextInput
                     multiline={true}
                     numberOfLines={10}
                     style={styles.problemaInput}
-                    placeholder="Ce problema aveti ?"
-                ></TextInput>
+                    placeholder="Ce problema aveti ?">
+
+                 </TextInput>
                 
                 
             </View> 
     
-        <TouchableOpacity style = {styles.TrimiteFormular} onPress = {this.props.TrimiteFormular}>
-            <Text style = {{alignSelf:'center', color:"#FFFFFF", padding:10}}>Trimitere formular</Text>
-        </TouchableOpacity>
+            <TouchableOpacity style = {styles.TrimiteFormular} onPress = {()=>this.trimiteFormular()}>
+                <Text style = {{alignSelf:'center', color:"#FFFFFF", padding:10}}>Trimitere formular</Text>
+            </TouchableOpacity>
             
         </Modal>
         </TouchableWithoutFeedback>

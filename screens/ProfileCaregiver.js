@@ -1,26 +1,24 @@
 import React from 'react'
 import {Text,View, StyleSheet,TouchableOpacity,ImageBackground ,ScrollView,Image} from 'react-native'
-import {Header, Left, Right, Icon} from 'native-base'
 import { MaterialIcons ,Ionicons ,AntDesign ,FontAwesome,Fontisto,MaterialCommunityIcons } from '@expo/vector-icons';
 import { globallyStyles } from '../global/styles';
-import DropDownPicker from 'react-native-dropdown-picker';
-import axios from 'axios';
 
+import axios from 'axios';
 import {Avatar,Title,} from 'react-native-paper';
 
-export default class Profile extends React.Component{
+export default class ProfileCaregiver extends React.Component{
     constructor(props){
-       super(props);
-    };
+        super(props);
+    }
     state = {
-        name : this.props.screenProps.displayName,
-        location:'',
+        name : '',      
         phone:'',
-        email: this.props.screenProps.email,
+        email: '',
         sex:'',
-        cnp:'',
-        numeMedic:'',
-        numeIngrijitor:'',
+        numePacient:'',
+        data_nasterii:'',
+        disponibil:1,
+
     }
 
     //in functie de mailul de la login
@@ -30,30 +28,28 @@ export default class Profile extends React.Component{
       let location ='';
       let phone ='';
       let sex ='';
-      let cnp = '';
-      let numeMedic='';
-      let idIngrijitor='';
-      let numeIngrijitor='';
+      let varsta = '';
+     
       let options = {   headers: {'Accept':'application/json','Content-Type':'application/json'} }; 
-      axios.get('http://192.168.0.183:8080/patients/'+this.state.email)
-        .then((response) => {
-          // handle success
-          // cnp = JSON.stringify(response.data.CNP);
-          // location = JSON.stringify(response.data.address);
-          phone = JSON.stringify(response.data.phone);
-          sex = JSON.stringify(response.data.sex);        
+      // axios.get('http://192.168.0.183:8080/patients/'+this.state.email)
+      //   .then((response) => {
+      //     // handle success
+      //     // cnp = JSON.stringify(response.data.CNP);
+      //     // location = JSON.stringify(response.data.address);
+      //     phone = JSON.stringify(response.data.phone);
+      //     sex = JSON.stringify(response.data.sex);        
        
-          idIngrijitor = JSON.stringify(response.data.caregiver_user_userId);
+      //     idIngrijitor = JSON.stringify(response.data.caregiver_user_userId);
           
-          this.setState({
-            location:JSON.stringify(response.data.address),
-            phone:phone,
-            sex:sex,
-            cnp:JSON.stringify(response.data.CNP)
-          })
+      //     this.setState({
+      //       location:JSON.stringify(response.data.address),
+      //       phone:phone,
+      //       sex:sex,
+      //       cnp:JSON.stringify(response.data.CNP)
+      //     })
          
-        })
-        .catch((error) => console.log(error));
+      //   })
+      //   .catch((error) => console.log(error));
 
     
       //  axios('http://192.168.0.183:8080/patients/test100@test.com', {
@@ -93,19 +89,15 @@ export default class Profile extends React.Component{
                             size={100}
                         />
                         <View style={{marginLeft: 20}}>
-                            <Title style={[styles.title, {marginTop:15,marginBottom: 5,}]}>
-                              Pacient: {this.state.name}
-                              </Title>
+                            <Title style={[styles.title, { marginTop:15, marginBottom: 5,}]}>
+                              Ingrijitor: {this.state.name}
+                            </Title>
                             
                         </View>
                     </View>
                 </View>            
                 <View style={styles.userInfoSection}>
-                    <View style={styles.row}>
-                        <Ionicons name="location-outline" size={24} color="black" />
-                        <Text style={{fontSize:20,marginLeft:10,color:'#333',fontWeight:'300'}} >Adresa</Text>
-                        <Text style={{color:"#2c3e50", marginLeft: 20,fontSize:24}}>{this.state.location}</Text>
-                    </View>
+                    
                     <View style={styles.row}>
                         <AntDesign name="phone" size={24} color="black" />
                         <Text style={{fontSize:20,marginLeft:10,color:'#333',fontWeight:'300'}} >Telefon</Text>
@@ -118,8 +110,8 @@ export default class Profile extends React.Component{
                     </View>
                     <View style={styles.row}>
                         <AntDesign name="idcard" size={24} color="black" />
-                        <Text style={{fontSize:20,marginLeft:10,color:'#333',fontWeight:'300'}} >CNP</Text>
-                        <Text style={{color:"#2c3e50", marginLeft: 20,fontSize:24}}>{this.state.cnp}</Text>
+                        <Text style={{fontSize:20,marginLeft:10,color:'#333',fontWeight:'300'}} >Data nasterii</Text>
+                        <Text style={{color:"#2c3e50", marginLeft: 20,fontSize:24}}>{this.state.data_nasterii}</Text>
                     </View>
                     <View style={styles.row}>
                         <FontAwesome name="intersex" size={24} color="black" />
@@ -127,15 +119,16 @@ export default class Profile extends React.Component{
                         <Text style={{color:"#2c3e50", marginLeft: 20,fontSize:24}}>{this.state.sex}</Text>
                     </View>
                     <View style={styles.row}>
-                        <Fontisto name="doctor" size={24} color="black" />
-                        <Text style={{fontSize:20,marginLeft:10,color:'#333',fontWeight:'300'}} >Nume medic</Text>
-                        <Text style={{color:"#2c3e50", marginLeft: 20,fontSize:24}}>{this.state.numeMedic}</Text>
+                        <FontAwesome name="intersex" size={24} color="black" />
+                        <Text style={{fontSize:20,marginLeft:10,color:'#333',fontWeight:'300'}} >Disponibilitate</Text>
+                        <Text style={{color:"#2c3e50", marginLeft: 20,fontSize:24}}>{this.state.disponibil == 1 ?' DA' :'NU'}</Text>
                     </View>
                     <View style={styles.row}>
-                        <MaterialCommunityIcons name="human" size={24} color="black" />
-                        <Text style={{fontSize:20,marginLeft:10,color:'#333',fontWeight:'300'}} >Nume ingrijitor</Text>
-                        <Text style={{color:"#2c3e50", marginLeft: 20,fontSize:24}}>{this.state.numeIngrijitor}</Text>
+                        <Fontisto name="doctor" size={24} color="black" />
+                        <Text style={{fontSize:20,marginLeft:10,color:'#333',fontWeight:'300'}} >Nume pacient</Text>
+                        <Text style={{color:"#2c3e50", marginLeft: 20,fontSize:24}}>{this.state.disponibil == 0 ? this.state.numePacient : 'Nu aveti pacient'}</Text>
                     </View>
+                   
                 </View>
        
             <View style={styles.menuWrapper}>

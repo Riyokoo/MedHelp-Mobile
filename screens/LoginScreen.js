@@ -3,11 +3,16 @@ import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image, Linking , T
 import { FontAwesome } from '@expo/vector-icons'
 import * as firebase from "firebase";
 
+import axios from 'axios';
+
 export default class LoginScreen extends React.Component{
 
     state = {
         email: "",
         password: "",
+        userRole:"",
+        firstName:"",
+        lastName:"",
         errorMessage: null
     };
     
@@ -15,32 +20,81 @@ export default class LoginScreen extends React.Component{
     handleLogin = () => {
         const { email, password } = this.state;
 
-        firebase
-            .auth()
-            .signInWithEmailAndPassword(email , password)
-            .catch(error => {
 
-                if (this.state.email === "") {
-                    this.setState({errorMessage:"Adresa de mail trebuie completata !"})
-                }
 
-                else if (error.code === 'auth/invalid-email') {
-                    this.setState({errorMessage:"Adresa de email nu este valida !"})
-                }
+        let options = {   headers: {'Accept':'application/json','Content-Type':'application/json'} }; 
+        // axios.get('http://192.168.0.183:8080/users/emanuel.caprariu@test.com',options)
+        // .then((response) => {
+                             
+        //    console.log(response.data);
+        // })
+        // .catch((error) => console.log(error));
+       
+        // fetch('http://192.168.0.183:8080/users/emanuel.caprariu@test.com', {
+        //         method: 'GET',
+        //         headers: {
+        //             Accept: 'application/json',
+        //             'Content-Type': 'application/json'
+        //         },
+        // }).then((response) =>{
+        //         console.log(response.json());
+            
+        // })
+        // .then(json=>{
+        //     console.log(json);
+        // });
+        // console.log(data);
 
-                else if (this.state.password === "") {
-                    this.setState({errorMessage:"Parola trebuie completata !"})
-                }
+        fetch('http://192.168.0.183:8080/users/emanuel.caprariu@test.com', {
+            method: 'GET',
+            headers: {
+                 Accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            
+        }).then(response => console.log(response))
+        .catch((error) => { console.log(error)}); 
+
+        //   axios('http://192.168.0.183:8080/users/emanuel.caprariu@test.com', {
+        //     method: 'GET',
+        //     headers: {
+        //         Accept: 'application/json',
+        //         'Content-Type':'application/json'
+        //     }
+           
+                      
+        // })
+        // .then((response)=>console.log(response.data)
+        // .catch((error) => { console.log(error)}));
+
+        // firebase
+        //     .auth()
+        //     .signInWithEmailAndPassword(email , password)
+        //     .catch(error => {
+
+        //         if (this.state.email === "") {
+        //             this.setState({errorMessage:"Adresa de mail trebuie completata !"})
+        //         }
+
+        //         else if (error.code === 'auth/invalid-email') {
+        //             this.setState({errorMessage:"Adresa de email nu este valida !"})
+        //         }
+
+        //         else if (this.state.password === "") {
+        //             this.setState({errorMessage:"Parola trebuie completata !"})
+        //         }
                     
-                else if (error.code === "auth/user-not-found") {
-                    this.setState({errorMessage:"Acest cont nu exista !"})
-                }
+        //         else if (error.code === "auth/user-not-found") {
+        //             this.setState({errorMessage:"Acest cont nu exista !"})
+        //         }
 
                 
-            })
+        //     })
     };
 
     render() {
+
+       
         return (
             <TouchableWithoutFeedback onPress={()=>{
                 Keyboard.dismiss();

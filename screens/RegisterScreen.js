@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet, TextInput, TouchableOpacity,Image , TouchableWithoutFeedback , Keyboard, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity,Image , TouchableWithoutFeedback , Keyboard, ScrollView, Alert } from 'react-native';
 import * as firebase from "firebase";
 import { RadioButton } from 'react-native-paper';
 import axios from 'axios';
@@ -41,24 +41,9 @@ export default class RegisterScreen extends React.Component{
             } );
             */
             /*
-        fetch(' http://192.168.0.131:8080/users', {
-            method: 'POST',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                username: "",
-                firstName: this.state.nume,
-                lastName: this.state.prenume,
-                password: this.state.password,
-                email: this.state.email,
-                userRole: this.state.role
-                
-            })
-        }).catch((error) => { console.log(error)});
+        
         */
-
+          
 
         //Verificare NUME VALID
         if (this.state.nume === "")
@@ -155,26 +140,43 @@ export default class RegisterScreen extends React.Component{
         }
     
 
-      axios({
-        method: 'POST',
-          url: 'http://192.168.0.131:8080/users',
-          headers: {
-              'Accept': 'application/json',
-              'Content-Type':'application/json'
-          },
-          data: JSON.stringify({
-             username: this.state.nume,
-                firstName: this.state.nume,
-                lastName: this.state.prenume,
-                password: this.state.password,
-                email: this.state.email,
-                userRole: 'ADMIN'
-        })
-        }).then((response)=>console.log(response)).catch((error)=>console.log(error))
+    //   axios({
+    //     method: 'POST',
+    //       url: 'http://192.168.0.131:8080/users',
+    //       headers: {
+    //           'Accept': 'application/json',
+    //           'Content-Type':'application/json'
+    //       },
+    //       data: JSON.stringify({
+    //          username: this.state.nume,
+    //             firstName: this.state.nume,
+    //             lastName: this.state.prenume,
+    //             password: this.state.password,
+    //             email: this.state.email,
+    //             userRole: 'ADMIN'
+    //     })
+    //     }).then((response)=>console.log(response)).catch((error)=>console.log(error))
         
-     }
-    
+    fetch('http://192.168.0.183:8080/users/', {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            email: this.state.email,
+            firstName: this.state.nume,
+            lastName: this.state.prenume,
+            password: this.state.password,                
+            userRole: this.state.role
+           
+        })
+    }).catch((error) => { console.log(error)}); 
 
+       
+    }
+    
+     
 
     //this.setState({ errorMessage: error.message })
 
@@ -296,15 +298,15 @@ export default class RegisterScreen extends React.Component{
 
                      <RadioButton.Group onValueChange = {Role => this.setState({role:Role})}  value={this.state.role}>
                         <View style={[{display:"flex"},{flexDirection:'row'}]}>
-                            <RadioButton  value="medic" />
+                            <RadioButton  value="DOCTOR" />
                             <Text style = {{alignSelf:"center"}}>Medic</Text>
                         </View>
                         <View style={[{display:"flex"},{flexDirection:'row'}]}>
-                            <RadioButton value="ingrijitor" />
+                            <RadioButton value="CAREGIVER" />
                              <Text style = {{alignSelf:"center"}}>Ingrijitor</Text>
                         </View>
                         <View style={[{display:"flex"},{flexDirection:'row'}]}>
-                            <RadioButton value="pacient" />
+                            <RadioButton value="PACIENT" />
                             <Text style = {{alignSelf:"center"}}>Pacient</Text>
                             </View>
                             

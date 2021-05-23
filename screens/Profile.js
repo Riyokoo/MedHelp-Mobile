@@ -35,7 +35,7 @@ export default class Profile extends React.Component{
       let idIngrijitor='';
       let numeIngrijitor='';
       let options = {   headers: {'Accept':'application/json','Content-Type':'application/json'} }; 
-      axios.get('http://192.168.0.183:8080/patients/'+this.state.email)
+      axios.get('http://192.168.0.183:8080/users/emanuel.caprariu@test.com')
         .then((response) => {
           // handle success
           // cnp = JSON.stringify(response.data.CNP);

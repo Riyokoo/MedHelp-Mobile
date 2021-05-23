@@ -1,6 +1,7 @@
 import React from 'react';
 import {ImageBackground,Modal,View,Text,Button,ScrollView, StyleSheet,TextInput } from 'react-native';
 import HeaderData from '../shared/headerData';
+import { Picker } from "native-base";
 
 export default class IntroduDiagnosticModal extends React.Component {
 
@@ -9,7 +10,8 @@ export default class IntroduDiagnosticModal extends React.Component {
         super(props);
 
         this.state = {
-        toggleIntroduDiagnostc:true,
+            toggleIntroduDiagnostc: true,
+            pacient:"",
     }
     }
 
@@ -20,30 +22,47 @@ export default class IntroduDiagnosticModal extends React.Component {
                    
                     <HeaderData changeVisbility={this.props.SchimbaVizibilitate} title="Introdu diagnostic"/>
                     <ScrollView style={styles.container}>                  
-                            <Text style={[styles.item,{textAlign:'left',marginLeft:5,letterSpacing:1,fontSize:20,marginBottom:10,color:'#2c3e50'}]}>Puteti sa vizualizati diagnosticul prescris:</Text>
+                        <Text style={[styles.item, { textAlign: 'left', marginLeft: 5, letterSpacing: 1, fontSize: 20, marginBottom: 10, color: '#2c3e50' }]}>Puteti sa vizualizati diagnosticul prescris:</Text>
+                        
                             <View style={styles.items}  >
-                                <TextInput placeholder = "Nume pacient" ></TextInput>
-                                <Text style={styles.textItem}> </Text>
+                                
+                                
+                               
+                                <Picker
+                                    style={{height: 50, width: 100}}
+                                onValueChange={(e) => { this.setState({pacient:e}) }}
+                            >
+                                <Picker.Item label = "Selectati pacientul" value = {"awd"} />
+                                <Picker.Item label="Vladi" value="Vladi" />
+                                <Picker.Item label="Manu" value="Manu" />
+                                </Picker>
+                                
                                 
                             </View> 
-                            <View style={styles.items}  >
-                                <Text style={styles.textItem}>Data diagnostic</Text>
-                                <Text style={styles.textItem}> </Text>
+                             
+                            <View style={[styles.items,{flexDirection:'column'}]}>
                                 
-                            </View>   
+                            <TextInput
+                                    placeholder = "Introduceti diagnosticul"
+                                    multiline={true}
+                                    numberOfLines={10}
+                                    style={styles.problemaInput}
+                                ></TextInput>
+                            
+                        </View>
                             <View style={[styles.items,{flexDirection:'column'}]}>
-                                <Text style={styles.textItem}> Diagnosticul prescris </Text>
-                                <Text style={styles.textItem}></Text>
+                                 <TextInput
+                                    placeholder = "Observatii"
+                                    multiline={true}
+                                    numberOfLines={4}
+                                    style={styles.problemaInput}
+                                ></TextInput>
                             </View>  
-                            <View style={[styles.items,{flexDirection:'column'}]}>
-                                <Text style={styles.textItem}> Observatii </Text>
-                                <Text style={styles.textItem}></Text>
-                            </View>  
-                            <View  style={[styles.items,{flexDirection:'row',justifyContent:'space-around',marginRight:10}]}>
-                                {/* <Button title="Refuz" color={"#c0392b"} onPress={()=>this.refuzDiagnostic()} /> */}
-                                <Text style={styles.textItem}>Acceptare diagnostic</Text>
-                                <Button title="Trimite diagnostic" color={"#16a085"} onPress = {() => this.props.SchimbaVizibilitate()} />
-                            </View>  
+                        <View style = {styles.send}>
+                            <Button title="Trimite diagnostic" color={"#16a085"} onPress = {() => this.props.SchimbaVizibilitate()} />
+                        </View>
+                        
+                        
                               
                     </ScrollView>              
                     </ImageBackground>       
@@ -95,6 +114,25 @@ const styles = StyleSheet.create({
         color:'#2c3e50',
         letterSpacing:2,
         fontWeight: '200',
-        padding:0,
+        padding: 0,
+        width: 290,        
+        
     },
+    problemaInput: {
+        borderRadius: 4,
+        borderWidth: 2,
+        borderColor: 'transparent',
+        textAlignVertical: 'top',
+        width: 400,
+        paddingTop: 10,
+        paddingHorizontal: 10,
+        textDecorationLine:'none',
+    },
+    send: {
+        width: 140,
+        height: 60,
+        alignSelf: 'center',
+        
+        
+    }
 });

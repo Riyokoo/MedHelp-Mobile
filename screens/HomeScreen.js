@@ -5,17 +5,26 @@ import { State, TouchableOpacity } from 'react-native-gesture-handler';
 import { createAppContainer,NavigationActions  } from 'react-navigation'
 import { createDrawerNavigator } from 'react-navigation-drawer';
 import { createStackNavigator } from 'react-navigation-stack';
-import {Feather,SimpleLineIcons, FontAwesome5, Octicons ,AntDesign } from '@expo/vector-icons'
+import {Feather,SimpleLineIcons, FontAwesome5, Octicons ,AntDesign,MaterialIcons } from '@expo/vector-icons'
 
-
+//Import screens
 import PersonalData from './PersonalData';
 import Profile from './Profile';
 import Sidebar from '../components/Sidebar';
 import AvetiVreoProblema from './AvetiVreoProblema';
 import AddData from './addData';
 import Acasa from './Acasa';
+import IntroduDiagnostic from './IntroduDiagnostic';
 
 const AppDrawerNavigator = createDrawerNavigator({
+
+        Acasa: {
+            screen: Acasa,
+            navigationOptions:{
+                title:"Acasa",
+                drawerIcon:({ tintColor }) => <Feather name="home" size={24} color="black" />
+            }
+        },   
         Profile: {
                 screen: Profile,
                 navigationOptions: {          
@@ -48,14 +57,16 @@ const AppDrawerNavigator = createDrawerNavigator({
                         drawerIcon:({tintColor}) => <Octicons style = {styles.ReportProbleIcon} name="report" size={24} color="black" onPress = {()=> alert("DA")} ></Octicons>,
                     
                 },
-        },
-        Acasa: {
-            screen: Acasa,
-            navigationOptions:{
-                title:"Acasa",
-                drawerIcon:({ tintColor }) => <Feather name="home" size={24} color="black" />
+    },
+        IntroduDiagnostic: {
+            screen: IntroduDiagnostic,
+            navigationOptions: {
+                title:"Introdu diagnostic",
+                drawerIcon:({tintColor}) => <MaterialIcons style = {styles.ReportProbleIcon} name="add-chart" size={24} color="black" onPress = {()=> alert("DA")} ></MaterialIcons>,
+
             }
-        },           
+        }
+                
     },
     {
         contentComponent: props => <Sidebar {...props} displayName = {props.displayName} email={props.email} />,

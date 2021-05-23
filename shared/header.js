@@ -20,7 +20,7 @@ export default class Header extends React.Component{
                 <Image source={require('../assets/MedLife.png')} style={{width:30,height:30,marginRight:10}} />
                 <Text style={styles.headerText}>{this.props.title}</Text>
             </View>
-        </ImageBackground >
+        </ImageBackground>
         );
     }  
 };

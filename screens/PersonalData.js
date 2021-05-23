@@ -20,9 +20,15 @@ export default class PersonalData extends React.Component{
         visibleDateMedicale:false,
         visibleDateAmbientale:false,
         visibleDateIstoric:false,
-        visibleDateDiagnostic:false,     
+        visibleDateDiagnostic: false,
+        visibleIntroduDiagnostic:false,
         
     }
+
+    IntroduDiagnosticPress = () => {
+        this.setState({visibleIntroduDiagnostic:!this.state.visibleIntroduDiagnostic});
+    }
+
     date_medicalePress= () =>{
         console.log("Merg datele medicale");
         this.setState({

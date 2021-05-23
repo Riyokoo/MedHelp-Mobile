@@ -6,6 +6,10 @@ import {FontAwesome} from "@expo/vector-icons";
 export default class HeaderData extends React.Component{
     constructor(props){
         super(props);
+
+        this.state = {
+            toggleIntroduDiagnostic:false,
+        }
     }
 
    
@@ -15,11 +19,13 @@ export default class HeaderData extends React.Component{
             <View style={{flex:1,flexDirection:'row',justifyContent:'space-around',margin:10,alignItems:'center'}}>
                 <Image source={require('../assets/MedLife.png')} style={{width:40,height:40, marginLeft:10, marginRight:20}} />
                 <Text style={styles.headerText}>{this.props.title}</Text>
-                <TouchableOpacity  onPress = {()=>this.props.changeVisbility() }>                   
+                    <TouchableOpacity
+                        toggleIntroduDiagnostic={this.state.toggleIntroduDiagnostic}
+                        onPress={() => { this.props.changeVisbility(); this.setState({toggleIntroduDiagnostic:!this.state.toggleIntroduDiagnostic})}}>
                      <FontAwesome name="window-close" size={30} color="black"  />
                  </TouchableOpacity>
             </View>
-        </ImageBackground >
+        </ImageBackground>
         );
     }  
 };

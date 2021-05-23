@@ -7,7 +7,8 @@ export default class DateDiagnotisc extends React.Component {
         constructor(props){
             super(props);
         };
-        state = {
+    state = {
+            
             numeMedic:"Nicolae Ioan",
             diagnotisc:"Some text here from DATABASE",
             observatii:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nisl eros,pulvinar facilisis justo mollis, auctor consequat urna. Morbi a bibendum metus. Donec scelerisque sollicitudin enim eu venenatis. Duis tincidunt laoreet ex, in pretium orci vestibulum eget.",

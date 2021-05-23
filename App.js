@@ -12,7 +12,11 @@ import { Feather } from '@expo/vector-icons';
 import Header from './shared/header';
 import React from 'react';
 
-
+///mine
+// apiKey:AIzaSyAhTCS1HQ4DWhocumyVqGnWUd78Z-hihSQ,
+// authDomain:
+// projectId:medhelp-app
+// appId:1:890007642440:android:a21d431663ca905ae3137d,
 var firebaseConfig = {
     apiKey: "AIzaSyBEeiYQmTTWeC1uZSncYnK2cDYWXn4ii50",
     authDomain: "login-system-1a548.firebaseapp.com",

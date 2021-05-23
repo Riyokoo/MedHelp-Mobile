@@ -3,11 +3,10 @@ import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image, Linking , T
 import { FontAwesome } from '@expo/vector-icons'
 import firebase from "firebase";
 import firestore from '@react-native-firebase/firestore';
+import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 
 import axios from 'axios';
-
-
-var rol = firebase.firestore().collection('users').doc('voeoMHQPrEOwtSSyyx07');
+import HomeScreen from './HomeScreen';
 
 export default class LoginScreen extends React.Component{
     constructor(props){
@@ -16,6 +15,8 @@ export default class LoginScreen extends React.Component{
         
     }
     state = {
+        verify_email:"",
+        verify_password:"",
         email: "",
         password: "",
         userRole:"",
@@ -28,11 +29,9 @@ export default class LoginScreen extends React.Component{
     handleLogin = () => {
         const { email, password } = this.state;
 
-
-
         let options = {   headers: {'Accept':'application/json','Content-Type':'application/json'} }; 
 
-        fetch(`http://192.168.0.183:8080/users/${this.state.email}`, {
+        fetch(`http://192.168.0.183:8080/users/${this.state.verify_email}`, {
             method: 'GET',
             headers: {
                  Accept: 'application/json',
@@ -45,15 +44,18 @@ export default class LoginScreen extends React.Component{
                   email:response.email, 
                   firstName:response.firstName,
                   lastName:response.lastName,
-                  userRole:response.userRole
+                  userRole:response.userRole,
+                  password:response.password,
                },()=>{
-                   console.log(this.state.userRole);
-               })
-        })
-           
+                   console.log(this.state.userRole + "password : " + this.state.password);
+            })
+        }).catch((error) => { console.log(error)}); 
+        
+        if(this.state.verify_password === this.state.password){
             
-        .catch((error) => { console.log(error)}); 
-
+             
+            return (<HomeScreen  />);
+        }
         //   axios('http://192.168.0.183:8080/users/emanuel.caprariu@test.com', {
         //     method: 'GET',
         //     headers: {
@@ -66,31 +68,31 @@ export default class LoginScreen extends React.Component{
         // .then((response)=>console.log(response.data)
         // .catch((error) => { console.log(error)}));
 
-        firebase
-            .auth()
-            .signInWithEmailAndPassword(email , password)
-            .catch(error => {
+        // firebase
+        //     .auth()
+        //     .signInWithEmailAndPassword(email , password)
+        //     .catch(error => {
 
-                if (this.state.email === "") {
-                    this.setState({errorMessage:"Adresa de mail trebuie completata !"})
-                }
+        //         if (this.state.email === "") {
+        //             this.setState({errorMessage:"Adresa de mail trebuie completata !"})
+        //         }
 
-                else if (error.code === 'auth/invalid-email') {
-                    this.setState({errorMessage:"Adresa de email nu este valida !"})
-                }
+        //         else if (error.code === 'auth/invalid-email') {
+        //             this.setState({errorMessage:"Adresa de email nu este valida !"})
+        //         }
 
-                else if (this.state.password === "") {
-                    this.setState({errorMessage:"Parola trebuie completata !"})
-                }
+        //         else if (this.state.password === "") {
+        //             this.setState({errorMessage:"Parola trebuie completata !"})
+        //         }
                     
-                else if (error.code === "auth/user-not-found") {
-                    this.setState({errorMessage:"Acest cont nu exista !"})
-                }
+        //         else if (error.code === "auth/user-not-found") {
+        //             this.setState({errorMessage:"Acest cont nu exista !"})
+        //         }
 
                 
-         })
+        //  })
     };
-
+    componentDidUpdate(){}
     render() {
 
        
@@ -116,8 +118,8 @@ export default class LoginScreen extends React.Component{
                         <TextInput
                             style={styles.input}
                             autoCapitalize="none"
-                            onChangeText={email => this.setState({ email })}
-                            value = {this.state.email}
+                            onChangeText={email => this.setState({ verify_email:email })}
+                            value = {this.state.verify_email}
                         ></TextInput>
                     </View>
                 </View>
@@ -129,8 +131,8 @@ export default class LoginScreen extends React.Component{
                             style={styles.input}
                             secureTextEntry
                             autoCapitalize="none"
-                            onChangeText={password => this.setState({ password })}
-                            value = {this.state.password}
+                            onChangeText={password => this.setState({ verify_password:password })}
+                            value = {this.state.verify_password}
                         ></TextInput>
                     </View>
                 </View>

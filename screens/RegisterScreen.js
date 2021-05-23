@@ -25,7 +25,7 @@ export default class RegisterScreen extends React.Component{
     
 
     handleSignUp = () => {
-        /*
+        
         firebase
             .auth()
             .createUserWithEmailAndPassword(this.state.email, this.state.password)
@@ -39,10 +39,10 @@ export default class RegisterScreen extends React.Component{
                
                 
             } );
-            */
-            /*
+            
+            
         
-        */
+    
           
 
         //Verificare NUME VALID
@@ -172,7 +172,24 @@ export default class RegisterScreen extends React.Component{
            
         })
     }).catch((error) => { console.log(error)}); 
+     if ((/^([a-zA-Z]{3,})$/).test(this.state.nume) &&
+           (/^([a-zA-Z]{3,})$/).test(this.state.prenume) &&
+           emailRegex.test(this.state.email) &&
+            (/^([a-zA-Z0-9]{6,})$/).test(this.state.password) &&
+            (/^([a-zA-Z0-9]{6,})$/).test(this.state.re_password)) {
+             Alert.alert(
+           "Inregistrare cu success !",
+           "Contul dumneavoastra a fost creat.",
+           [
+               {
+                   text: "OK",
+                   style: "",
+                   onPress :() => this.props.navigation.navigate("Login"),
+               }
 
+           ]
+        )
+        }
        
     }
     

@@ -1,12 +1,20 @@
 import React from "react";
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image, Linking , TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons'
-import * as firebase from "firebase";
+import firebase from "firebase";
+import firestore from '@react-native-firebase/firestore';
 
 import axios from 'axios';
 
-export default class LoginScreen extends React.Component{
 
+var rol = firebase.firestore().collection('users').doc('voeoMHQPrEOwtSSyyx07');
+
+export default class LoginScreen extends React.Component{
+    constructor(props){
+        super(props);
+
+        
+    }
     state = {
         email: "",
         password: "",
@@ -23,36 +31,27 @@ export default class LoginScreen extends React.Component{
 
 
         let options = {   headers: {'Accept':'application/json','Content-Type':'application/json'} }; 
-        // axios.get('http://192.168.0.183:8080/users/emanuel.caprariu@test.com',options)
-        // .then((response) => {
-                             
-        //    console.log(response.data);
-        // })
-        // .catch((error) => console.log(error));
-       
-        // fetch('http://192.168.0.183:8080/users/emanuel.caprariu@test.com', {
-        //         method: 'GET',
-        //         headers: {
-        //             Accept: 'application/json',
-        //             'Content-Type': 'application/json'
-        //         },
-        // }).then((response) =>{
-        //         console.log(response.json());
-            
-        // })
-        // .then(json=>{
-        //     console.log(json);
-        // });
-        // console.log(data);
 
-        fetch('http://192.168.0.183:8080/users/emanuel.caprariu@test.com', {
+        fetch(`http://192.168.0.183:8080/users/${this.state.email}`, {
             method: 'GET',
             headers: {
                  Accept: 'application/json',
                 'Content-Type': 'application/json'
             },
             
-        }).then(response => console.log(response))
+        }).then(response => response.json() )
+            .then(response=> {
+               this.setState({
+                  email:response.email, 
+                  firstName:response.firstName,
+                  lastName:response.lastName,
+                  userRole:response.userRole
+               },()=>{
+                   console.log(this.state.userRole);
+               })
+        })
+           
+            
         .catch((error) => { console.log(error)}); 
 
         //   axios('http://192.168.0.183:8080/users/emanuel.caprariu@test.com', {
@@ -67,29 +66,29 @@ export default class LoginScreen extends React.Component{
         // .then((response)=>console.log(response.data)
         // .catch((error) => { console.log(error)}));
 
-        // firebase
-        //     .auth()
-        //     .signInWithEmailAndPassword(email , password)
-        //     .catch(error => {
+        firebase
+            .auth()
+            .signInWithEmailAndPassword(email , password)
+            .catch(error => {
 
-        //         if (this.state.email === "") {
-        //             this.setState({errorMessage:"Adresa de mail trebuie completata !"})
-        //         }
+                if (this.state.email === "") {
+                    this.setState({errorMessage:"Adresa de mail trebuie completata !"})
+                }
 
-        //         else if (error.code === 'auth/invalid-email') {
-        //             this.setState({errorMessage:"Adresa de email nu este valida !"})
-        //         }
+                else if (error.code === 'auth/invalid-email') {
+                    this.setState({errorMessage:"Adresa de email nu este valida !"})
+                }
 
-        //         else if (this.state.password === "") {
-        //             this.setState({errorMessage:"Parola trebuie completata !"})
-        //         }
+                else if (this.state.password === "") {
+                    this.setState({errorMessage:"Parola trebuie completata !"})
+                }
                     
-        //         else if (error.code === "auth/user-not-found") {
-        //             this.setState({errorMessage:"Acest cont nu exista !"})
-        //         }
+                else if (error.code === "auth/user-not-found") {
+                    this.setState({errorMessage:"Acest cont nu exista !"})
+                }
 
                 
-        //     })
+         })
     };
 
     render() {
@@ -101,7 +100,7 @@ export default class LoginScreen extends React.Component{
                 console.log("keyboard dismiss");
             }}>
             <View style = {styles.container}>
-                <Text style={styles.greeting}>{`Bine ai venit ! \n MedHelp `}</Text>
+                <Text style={styles.greeting}>{this.state.userRole}</Text>
                 
                 <View style = {styles.errorMessage}>
                     {this.state.errorMessage && <Text style = {styles.error}>{this.state.errorMessage}</Text>}

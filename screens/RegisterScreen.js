@@ -40,11 +40,6 @@ export default class RegisterScreen extends React.Component{
                 
             } );
             
-            
-        
-    
-          
-
         //Verificare NUME VALID
         if (this.state.nume === "")
         {
@@ -157,21 +152,21 @@ export default class RegisterScreen extends React.Component{
     //     })
     //     }).then((response)=>console.log(response)).catch((error)=>console.log(error))
         
-    fetch('http://192.168.0.183:8080/users/', {
-        method: 'POST',
-        headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            email: this.state.email,
-            firstName: this.state.nume,
-            lastName: this.state.prenume,
-            password: this.state.password,                
-            userRole: this.state.role
+    // fetch('http://192.168.0.183:8080/users/', {
+    //     method: 'POST',
+    //     headers: {
+    //         Accept: 'application/json',
+    //         'Content-Type': 'application/json'
+    //     },
+    //     body: JSON.stringify({
+    //         email: this.state.email,
+    //         firstName: this.state.nume,
+    //         lastName: this.state.prenume,
+    //         password: this.state.password,                
+    //         userRole: this.state.role
            
-        })
-    }).catch((error) => { console.log(error)}); 
+    //     })
+    // }).catch((error) => { console.log(error)}); 
      if ((/^([a-zA-Z]{3,})$/).test(this.state.nume) &&
            (/^([a-zA-Z]{3,})$/).test(this.state.prenume) &&
            emailRegex.test(this.state.email) &&

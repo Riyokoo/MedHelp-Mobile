@@ -12,15 +12,15 @@ export default class ProfileDoctor extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            name : '',
-            location:'',
-            phone:'',
-            email: '',
-            sex:'',
-            specializare:'',
-            nrparafa:'',
+            name : 'Nicolae Ioan',
+            location:'Str. Lalelelor Nr12',
+            phone:'0256123123',
+            email: 'vlad.ciuculescu@test.com',
+            sex:'M',
+            specializare:'plamani',
+            nrparafa:'232323',
             pacienti:[
-                {label:'Alberto DEl RIO',value:'Alberto DEl RIO'},
+                {label:'Emanuel Caprariu',value:'Emanuel Caprariu'},
                 {label:'Me gusta bueno',value:'Me gusta bueno'},
                 {label:'George Washington',value:'George Washington'},
                 {label:'Vasi Ovidiu',value:'Vasi Ovidiu'},
@@ -37,16 +37,14 @@ export default class ProfileDoctor extends React.Component{
    
     //in functie de mailul de la login
     // in functie de numele de la login
-    async componentDidMount(){
+    componentDidMount(){
             
      
     }
     addPhoto = () =>{
 
     }
-    componentDidUpdate(){
-        
-    }
+   
     render() {
         
         return (  
@@ -75,27 +73,27 @@ export default class ProfileDoctor extends React.Component{
                         <View style={styles.row}>
                             <Ionicons name="location-outline" size={24} color="black" />
                             <Text style={{fontSize:20,marginLeft:10,color:'#333',fontWeight:'300'}} >Adresa cabinet</Text>
-                            <Text style={{color:"#2c3e50", marginLeft: 20,fontSize:24}}>{this.state.location}</Text>
+                            <Text style={{color:"#2c3e50", marginLeft: 20,fontSize:20}}>{this.state.location}</Text>
                         </View>
                         <View style={styles.row}>
                             <AntDesign name="phone" size={24} color="black" />
                             <Text style={{fontSize:20,marginLeft:10,color:'#333',fontWeight:'300'}} >Telefon</Text>
-                            <Text style={{color:"#2c3e50", marginLeft: 20,fontSize:24}}>{this.state.phone}</Text>
+                            <Text style={{color:"#2c3e50", marginLeft: 20,fontSize:20}}>{this.state.phone}</Text>
                         </View>
                         <View style={styles.row}>
                             <MaterialIcons name="alternate-email" size={24} color="black" />
                             <Text style={{fontSize:20,marginLeft:10,color:'#333',fontWeight:'300'}} >Email</Text>
-                            <Text style={{color:"#2c3e50", marginLeft: 20,fontSize:24}}>{this.state.email}</Text>
+                            <Text style={{color:"#2c3e50", marginLeft: 20,fontSize:20}}>{this.state.email}</Text>
                         </View>
                         <View style={styles.row}>
                             <AntDesign name="idcard" size={24} color="black" />
                             <Text style={{fontSize:20,marginLeft:10,color:'#333',fontWeight:'300'}} >NR PARAFA</Text>
-                            <Text style={{color:"#2c3e50", marginLeft: 20,fontSize:24}}>{this.state.nrparafa}</Text>
+                            <Text style={{color:"#2c3e50", marginLeft: 20,fontSize:20}}>{this.state.nrparafa}</Text>
                         </View>
                         <View style={styles.row}>
                             <FontAwesome name="intersex" size={24} color="black" />
                             <Text style={{fontSize:20,marginLeft:10,color:'#333',fontWeight:'300'}} >Sex</Text>
-                            <Text style={{color:"#2c3e50", marginLeft: 20,fontSize:24}}>{this.state.sex}</Text>
+                            <Text style={{color:"#2c3e50", marginLeft: 20,fontSize:20}}>{this.state.sex}</Text>
                         </View>
                         <View style={styles.row}>
                             

@@ -4,15 +4,15 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import HeaderData from '../shared/headerData';
 
 export default class DateDiagnotisc extends React.Component {
-        constructor(props){
-            super(props);
-        };
+    constructor(props){
+        super(props);
+    };
     state = {
             
             numeMedic:"Nicolae Ioan",
-            diagnotisc:"Some text here from DATABASE",
-            observatii:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque nisl eros,pulvinar facilisis justo mollis, auctor consequat urna. Morbi a bibendum metus. Donec scelerisque sollicitudin enim eu venenatis. Duis tincidunt laoreet ex, in pretium orci vestibulum eget.",
-            date:new Date(2020, 2, 28),
+            diagnotisc:"febra serioasa",
+            observatii:"paracetamol de 3x pe zi,multe ceaiuri ",
+            date:new Date(),
             mode:'date',
             show:false,
             accept:false,
@@ -93,7 +93,7 @@ export default class DateDiagnotisc extends React.Component {
                             </View> 
                             <View style={styles.items}  >
                                 <Text style={styles.textItem}>Data diagnostic</Text>
-                                <Text style={styles.textItem}>{this.state.date.getDay() + "/" + this.state.date.getMonth() + "/" + this.state.date.getFullYear()} </Text>
+                                <Text style={styles.textItem}>{this.state.date.toLocaleDateString()} </Text>
                                 
                             </View>   
                             <View style={[styles.items,{flexDirection:'column'}]}>

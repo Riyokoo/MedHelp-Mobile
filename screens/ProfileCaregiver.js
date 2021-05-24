@@ -11,13 +11,13 @@ export default class ProfileCaregiver extends React.Component{
         super(props);
     }
     state = {
-        name : '',      
-        phone:'',
-        email: '',
-        sex:'',
-        numePacient:'',
-        data_nasterii:'',
-        disponibil:1,
+        name : 'Bradea Andreea',      
+        phone:'07232323141',
+        email: 'andreea.bradea@test.com',
+        sex:'F',
+        numePacient:'Emanuel Caprariu',
+        data_nasterii:'20-01-99',
+        disponibil:0,
 
     }
 
@@ -66,8 +66,8 @@ export default class ProfileCaregiver extends React.Component{
       //   .catch((error) => { console.log(error)}));
 
       this.setState({
-          name:this.props.screenProps.displayName,
-          email:this.props.screenProps.email,
+          // name:this.props.screenProps.displayName,
+          // email:this.props.screenProps.email,
          
       })
     }
@@ -101,32 +101,32 @@ export default class ProfileCaregiver extends React.Component{
                     <View style={styles.row}>
                         <AntDesign name="phone" size={24} color="black" />
                         <Text style={{fontSize:20,marginLeft:10,color:'#333',fontWeight:'300'}} >Telefon</Text>
-                        <Text style={{color:"#2c3e50", marginLeft: 20,fontSize:24}}>{this.state.phone}</Text>
+                        <Text style={{color:"#2c3e50", marginLeft: 20,fontSize:20}}>{this.state.phone}</Text>
                     </View>
                     <View style={styles.row}>
                         <MaterialIcons name="alternate-email" size={24} color="black" />
                         <Text style={{fontSize:20,marginLeft:10,color:'#333',fontWeight:'300'}} >Email</Text>
-                        <Text style={{color:"#2c3e50", marginLeft: 20,fontSize:24}}>{this.state.email}</Text>
+                        <Text style={{color:"#2c3e50", marginLeft: 20,fontSize:20}}>{this.state.email}</Text>
                     </View>
                     <View style={styles.row}>
                         <AntDesign name="idcard" size={24} color="black" />
                         <Text style={{fontSize:20,marginLeft:10,color:'#333',fontWeight:'300'}} >Data nasterii</Text>
-                        <Text style={{color:"#2c3e50", marginLeft: 20,fontSize:24}}>{this.state.data_nasterii}</Text>
+                        <Text style={{color:"#2c3e50", marginLeft: 20,fontSize:20}}>{this.state.data_nasterii}</Text>
                     </View>
                     <View style={styles.row}>
                         <FontAwesome name="intersex" size={24} color="black" />
                         <Text style={{fontSize:20,marginLeft:10,color:'#333',fontWeight:'300'}} >Sex</Text>
-                        <Text style={{color:"#2c3e50", marginLeft: 20,fontSize:24}}>{this.state.sex}</Text>
+                        <Text style={{color:"#2c3e50", marginLeft: 20,fontSize:20}}>{this.state.sex}</Text>
                     </View>
                     <View style={styles.row}>
                         <FontAwesome name="intersex" size={24} color="black" />
                         <Text style={{fontSize:20,marginLeft:10,color:'#333',fontWeight:'300'}} >Disponibilitate</Text>
-                        <Text style={{color:"#2c3e50", marginLeft: 20,fontSize:24}}>{this.state.disponibil == 1 ?' DA' :'NU'}</Text>
+                        <Text style={{color:"#2c3e50", marginLeft: 20,fontSize:20}}>{this.state.disponibil == 1 ?' DA' :'NU'}</Text>
                     </View>
                     <View style={styles.row}>
                         <Fontisto name="doctor" size={24} color="black" />
                         <Text style={{fontSize:20,marginLeft:10,color:'#333',fontWeight:'300'}} >Nume pacient</Text>
-                        <Text style={{color:"#2c3e50", marginLeft: 20,fontSize:24}}>{this.state.disponibil == 0 ? this.state.numePacient : 'Nu aveti pacient'}</Text>
+                        <Text style={{color:"#2c3e50", marginLeft: 20,fontSize:20}}>{this.state.disponibil == 0 ? this.state.numePacient : 'Nu aveti pacient'}</Text>
                     </View>
                    
                 </View>

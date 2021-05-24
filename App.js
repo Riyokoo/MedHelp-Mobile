@@ -30,6 +30,7 @@ var firebaseConfig = {
 // Initialize Firebase
 
 
+
 if (!firebase.apps.length) {
    firebase.initializeApp(firebaseConfig);
 }else {
@@ -38,7 +39,7 @@ if (!firebase.apps.length) {
 
 const AppStack = createStackNavigator({
   Home:{
-    screen:HomeScreen,
+    screen:()=>(<HomeScreen role="PACIENT" />),
     navigationOptions: ( { navigation }) => {
       return {
          headerTitle: () => (<Header navigation={navigation} title='Home' />),
@@ -47,13 +48,15 @@ const AppStack = createStackNavigator({
     },
   
 })
-  
+handleRole = (role) =>{
+    console.log(role);
+} 
 const AuthStack = createStackNavigator({
-  Login: LoginScreen,
+  Login: ()=> (<LoginScreen  sendRole={()=>this.handleRole()} />),
   Register:RegisterScreen,
 })
 
-export default createAppContainer(
+const MainApp = createAppContainer(
   createSwitchNavigator(
     {
       Loading: LoadingScreen,
@@ -66,3 +69,12 @@ export default createAppContainer(
     }
   )
 )
+
+export default class App extends React.Component{
+  
+    render(){
+      return(
+          <MainApp />
+      )
+    }
+}

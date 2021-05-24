@@ -13,14 +13,24 @@ export default class DateMedicale extends React.Component{
     }
     state = {
         medicalData:[
-            {title:"Tensiune arteriala",values:{text:"Tensiunea arteriala inregistrata",value1:200,value2:100,text1:'SYS',text2:'DIA'}, function:(index)=>this.tensiuneArterialaPress(index),extended:false, index:0,nameIcon:'heartbeat',type:'font-awesome',color:'#c0392b', id:"bd7acbea-c1b1-46c2-aed5"},
-            {title:"Puls",values:{text:"Pulsul inregistrat",value1:100,value2:null,text1:'PUL/Min',text2:null} ,function:(index) => this.pulsPress(index),extended:false,index:1,nameIcon:'md-heart-outline',type:'ionicon',color:'#c0392b',id:"3ac68afc-c605-48d3-a4f8"},
-            {title:"Temperatură",values: {text:"Temperatura corporala inregistrata",value1:36.5,value2:null,text1:'°C',text2:null},function:(index) => this.tempPress(index),extended:false,index:2,nameIcon:'thermometer-0',type:'font-awesome',color:'#f50',id:"58694a0f-3da1-471f-bd96"},
-            {title:"Glicemie",values: {text:"Glicemia inregistrata",value1:87,value2:null,text1:'mg/DL',text2:null,},function:(index) => this.glicemiePress(index),extended:false,index:3,nameIcon:'water',type:'ionicon',color:'#2980b9',id:"qbaig872-0h35-rxc1-8sio"},
-            {title:"Greutate",values: {text:"Greutatea corporala  inregistrata",value1:67.6,value2:null,text1:'KG',text2:null},function:(index) => this.greutatePress(index),extended:false,index:4,nameIcon:'weight',type:'font-awesome-5',color:'#2c3e50',id:"eslrpmzv-d66c-eqqo-onkc"},
-            {title:"Consultatii",values: {text:"Data ultimei consultatii",value1:new Date(2020, 11, 17).toLocaleDateString("de-DE"),value2:null,text1:null,text2:null},function:(index) => this.consPress(index),extended:false,index:5,nameIcon:'clipboard',type:'ionicon',color:'#7f8c8d',id:"haq150ay-hi12-jh9j-k8ry"},          
+            {title:"Tensiune arteriala",values:{text:"Tensiunea arteriala inregistrata",value1:0,value2:0,text1:'SYS',text2:'DIA'}, function:(index)=>this.tensiuneArterialaPress(index),extended:false, index:0,nameIcon:'heartbeat',type:'font-awesome',color:'#c0392b', id:"bd7acbea-c1b1-46c2-aed5"},
+            {title:"Puls",values:{text:"Pulsul inregistrat",value1:0,value2:null,text1:'PUL/Min',text2:null} ,function:(index) => this.pulsPress(index),extended:false,index:1,nameIcon:'md-heart-outline',type:'ionicon',color:'#c0392b',id:"3ac68afc-c605-48d3-a4f8"},
+            {title:"Temperatură",values: {text:"Temperatura corporala inregistrata",value1:0.0,value2:null,text1:'°C',text2:null},function:(index) => this.tempPress(index),extended:false,index:2,nameIcon:'thermometer-0',type:'font-awesome',color:'#f50',id:"58694a0f-3da1-471f-bd96"},
+            {title:"Glicemie",values: {text:"Glicemia inregistrata",value1:0,value2:null,text1:'mg/DL',text2:null,},function:(index) => this.glicemiePress(index),extended:false,index:3,nameIcon:'water',type:'ionicon',color:'#2980b9',id:"qbaig872-0h35-rxc1-8sio"},
+            {title:"Greutate",values: {text:"Greutatea corporala  inregistrata",value1:0.0,value2:null,text1:'KG',text2:null},function:(index) => this.greutatePress(index),extended:false,index:4,nameIcon:'weight',type:'font-awesome-5',color:'#2c3e50',id:"eslrpmzv-d66c-eqqo-onkc"},
+            {title:"Consultatii",values: {text:"Data ultimei consultatii",value1:new Date().toLocaleDateString(),value2:null,text1:null,text2:null},function:(index) => this.consPress(index),extended:false,index:5,nameIcon:'clipboard',type:'ionicon',color:'#7f8c8d',id:"haq150ay-hi12-jh9j-k8ry"},          
         ],
         currentIndex:null,
+        tempCorp:0,
+        tensMare:0,
+        tensMica:0,
+        puls:0,
+        greutate:0.0,
+        glicemie:0,       
+        temp:0, 
+        umiditate:0,     
+        date:new Date(),
+
        
     }
 
@@ -122,7 +132,36 @@ export default class DateMedicale extends React.Component{
             
         </ListItem.Accordion>          
     );
+    componentDidMount(){
+        var myArray = [
 
+        ]
+
+        // fetch(`http://192.168.0.183:8080/sensors/1`, {
+        //     method: 'GET',
+        //     headers: {
+        //          Accept: 'application/json',
+        //         'Content-Type': 'application/json'
+        //     },
+            
+        //     }).then(response => response.json() )
+        //     .then(response=> {
+        //        this.setState({
+        //           tensMare: response.bloodPressureDiastolic,
+        //           tensMica: response.bloodPressureSystolic,
+        //           puls:response.pulse,
+        //           tempCorp: response.bodyTemperature,
+        //           greutate: response.bodyWeight,
+        //           glicemie: response.glycemia,               
+        //           temp:response.ambientTemperature,              
+        //           umiditate:response.humidity,
+                 
+        //        }
+        //        ,()=>{
+        //         console.log(this.state.tensMica+ " " + this.state.date.toLocaleDateString());
+        //     })
+        // }).catch((error) => { console.log(error)});   
+    }
     componentDidUpdate(){}
     render(){
         return(

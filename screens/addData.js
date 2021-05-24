@@ -1,5 +1,5 @@
 import React from 'react';
-import { View,Text,StyleSheet,ScrollView ,TouchableOpacity, ImageBackground,Image,Button,Keyboard , TouchableWithoutFeedback,Platform} from 'react-native';
+import { View,Text,StyleSheet,ScrollView ,TouchableOpacity, ImageBackground,Image,Button,Keyboard , TouchableWithoutFeedback,Platform, Alert} from 'react-native';
 import {MaterialIcons ,AntDesign ,FontAwesome ,MaterialCommunityIcons ,Ionicons,Entypo} from '@expo/vector-icons';
 import NumericInput from 'react-native-numeric-input'
 import { globallyStyles } from '../global/styles';
@@ -9,24 +9,26 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import axios from 'axios';
+import { ThemeConsumer } from 'react-native-elements';
 
 export default class AddData extends React.Component{
     constructor(props){
         super(props);
     }
     state = {
-        tempCorp:35,
-        tensMare:80,
-        tensMica:80,
-        puls:40,
-        greutate:30.0,
-        glicemie:10,       
-        temp:20, 
-        umiditate:20,     
+        tempCorp:0,
+        tensMare:0,
+        tensMica:0,
+        puls:0,
+        greutate:0.0,
+        glicemie:0,       
+        temp:0, 
+        umiditate:0,     
         error:false,
         date:new Date(),
         mode:'date',
         show:false,
+        accept:false,
 
     }
     incarcaDate = () =>{
@@ -54,31 +56,45 @@ export default class AddData extends React.Component{
 
         //incarcare in functie de emailul pacientului 
         const options = {   headers: {'Accept':'application/json','Content-Type':'application/json'} }; 
-        axios.post('http://192.168.0.183:8080/sensors/1',
-         JSON.stringify({
-            ambientTemperature:this.state.temp,   
-            bloodPressureDiastolic:this.state.tensMare,
-            bloodPressureSystolic:this.state.tensMica,
-            bodyTemperature:this.state.tempCorp,
-            bodyWeight:this.state.greutate,          
-            // date: this.state.date.getDay() +"-"+this.state.date.getMonth()+"-"+this.state.date.getFullYear(),
-            glycemia:this.state.glicemie,
-            // humidity:this.state.umiditate,
-            // pulse:this.state.puls,         
-        }), options)
-        .then((response) =>console.log(response.data))
-        .catch((error) => console.log(error));
+       
          
-        
-        /**
-         *  username: "",
-                firstName: "Emanuel",
-                lastName: "Caprariu",
-                password:"123578",
-                email: "manu.caprariu.brediceanu@gmail.com",
-                userRole: "ADMIN"
-        */
+        fetch('http://192.168.0.183:8080/sensors/1', {
+            method: 'POST',
+            headers: {
+                 Accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                bloodPressureDiastolic:this.state.tensMica,
+                bloodPressureSystolic:this.state.tensMare,
+                pulse:this.state.puls,
+                bodyTemperature:this.state.tempCorp,
+                bodyWeight:this.state.greutate,
+                glycemia:this.state.glicemie,               
+                ambientTemperature:this.state.temp,              
+                humidity:this.state.umiditate,
+                date:this.state.date.getFullYear()+"-"+`${this.state.date.getDay() >=10 ? this.state.date.getMonth(): "0"+this.state.date.getDay() }`+"-"+`${this.state.date.getMonth() >=10 ? this.state.date.getMonth(): "0"+this.state.date.getMonth() }`,        
+            })
 
+        }).then(response=>{
+            Alert.alert(
+                "Date inregistrate",
+                "Multumim pentru incarcarea datelor!",
+                [
+                  {
+                    text: "OK", 
+                    onPress: () => {
+                      
+                        this.setState({
+                            accept:true,
+                        })
+                    }
+                  }
+                ]
+              );   
+        }).catch((error) => { console.log(error)}); 
+    
+        //merge pana aici
     }
     onChangeDate = (date) =>{
         const currentDate = date;

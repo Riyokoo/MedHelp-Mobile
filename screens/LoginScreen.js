@@ -47,14 +47,14 @@ export default class LoginScreen extends React.Component{
                   userRole:response.userRole,
                   password:response.password,
                },()=>{
-                   console.log(this.state.userRole + "password : " + this.state.password);
+                console.log(this.state.userRole + "password : " + this.state.password);
             })
         }).catch((error) => { console.log(error)}); 
         
         if(this.state.verify_password === this.state.password){
             
-             
-            return (<HomeScreen  />);
+             this.props.sendRole(this.state.userRole);
+           
         }
         //   axios('http://192.168.0.183:8080/users/emanuel.caprariu@test.com', {
         //     method: 'GET',
@@ -67,30 +67,30 @@ export default class LoginScreen extends React.Component{
         // })
         // .then((response)=>console.log(response.data)
         // .catch((error) => { console.log(error)}));
+        console.log(email + " " + password);
+        firebase
+            .auth()
+            .signInWithEmailAndPassword(this.state.verify_email ,this.state.verify_password)
+            .catch(error => {
 
-        // firebase
-        //     .auth()
-        //     .signInWithEmailAndPassword(email , password)
-        //     .catch(error => {
+                if (this.state.verify_email === "") {
+                    this.setState({errorMessage:"Adresa de mail trebuie completata !"})
+                }
 
-        //         if (this.state.email === "") {
-        //             this.setState({errorMessage:"Adresa de mail trebuie completata !"})
-        //         }
+                else if (error.code === 'auth/invalid-email') {
+                    this.setState({errorMessage:"Adresa de email nu este valida !"})
+                }
 
-        //         else if (error.code === 'auth/invalid-email') {
-        //             this.setState({errorMessage:"Adresa de email nu este valida !"})
-        //         }
-
-        //         else if (this.state.password === "") {
-        //             this.setState({errorMessage:"Parola trebuie completata !"})
-        //         }
+                else if (this.state.verify_password === "") {
+                    this.setState({errorMessage:"Parola trebuie completata !"})
+                }
                     
-        //         else if (error.code === "auth/user-not-found") {
-        //             this.setState({errorMessage:"Acest cont nu exista !"})
-        //         }
+                else if (error.code === "auth/user-not-found") {
+                    this.setState({errorMessage:"Acest cont nu exista !"})
+                }
 
                 
-        //  })
+         })
     };
     componentDidUpdate(){}
     render() {

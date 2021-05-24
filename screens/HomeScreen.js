@@ -273,15 +273,16 @@ export default class HomeScreen extends React.Component{
     state = {
         email: "",
         displayName:"",
-        userRol:"pacient"
+        userRol:this.props.role
 
     }
 
     componentDidMount() {
        
         const { email, displayName } = firebase.auth().currentUser;
-
         this.setState({ email, displayName });
+        console.log(this.props.role);
+        
     }
 
     signOutUser = () => {
@@ -292,11 +293,11 @@ export default class HomeScreen extends React.Component{
         return (
                     
             <>
-                {this.state.userRol === "pacient"
+                {this.state.userRol === "PACIENT"
                 ? (<HomePatient screenProps = {{displayName:this.state.displayName,email:this.state.email}}></HomePatient> )
-                : this.state.userRol === "doctor"
+                : this.state.userRol === "DOCTOR"
                 ? (<HomeDoctor screenProps = {{displayName:this.state.displayName,email:this.state.email}}></HomeDoctor>)
-                : this.state.userRol ==="caregiver" 
+                : this.state.userRol ==="CAREGIVER" 
                 ?(<HomeCaregiver screenProps = {{displayName:this.state.displayName,email:this.state.email}}></HomeCaregiver>)
                 :(<HomeDefault screenProps = {{displayName:this.state.displayName,email:this.state.email}}></HomeDefault>)
                 }

@@ -13,67 +13,44 @@ export default class Profile extends React.Component{
        super(props);
     };
     state = {
-        name :'Emanuel Caprariu',
-        location:'Timisoara',
-        phone:'0729029283',
-        email: this.props.screenProps.email,
-        sex:'M',
-        cnp:'199022336123',
-        numeMedic:'Ioan Nicolae',
-        numeIngrijitor:'Bradea Andreea',
+        name :this.props.screenProps.displayName +" "+this.props.screenProps.displayPrenume,
+        location:'',
+        phone:'',
+        email:this.props.screenProps.email,
+        sex:'',
+        cnp:'',
+        numeMedic:'',
+        numeIngrijitor:'',
+        grupa_sange:'',
+        data_nasterii:'',
+        varsta:'',
     }
 
     //in functie de mailul de la login
     // in functie de numele de la login
    componentDidMount(){
-     
-      let location ='';
-      let phone ='';
-      let sex ='';
-      let cnp = '';
-      let numeMedic='';
-      let idIngrijitor='';
-      let numeIngrijitor='';
-      let options = {   headers: {'Accept':'application/json','Content-Type':'application/json'} }; 
-      // axios.get('http://192.168.0.183:8080/patients/'+this.state.email)
-      //   .then((response) => {
-      //     // handle success
-      //     // cnp = JSON.stringify(response.data.CNP);
-      //     // location = JSON.stringify(response.data.address);
-      //     phone = JSON.stringify(response.data.phone);
-      //     sex = JSON.stringify(response.data.sex);        
-       
-      //     idIngrijitor = JSON.stringify(response.data.caregiver_user_userId);
-          
-      //     this.setState({
-      //       location:JSON.stringify(response.data.address),
-      //       phone:phone,
-      //       sex:sex,
-      //       cnp:JSON.stringify(response.data.CNP)
-      //     })
-         
-      //   })
-      //   .catch((error) => console.log(error));
 
-    
-      //  axios('http://192.168.0.183:8080/patients/test100@test.com', {
-      //       method: 'GET',
-      //       headers: {
-      //           'Accept': 'application/json',
-      //           'Content-Type':'application/json'
-      //       }
-           
+    fetch(`http://192.168.0.183:8080/patients/${this.state.email}`, {
+            method: 'GET',
+            headers: {
+                 Accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
             
-           
-      //   })
-      //   .then((response)=>console.log(response)
-      //   .catch((error) => { console.log(error)}));
+        }).then(response => response.json() )
+            .then(response=> {
+               this.setState({
+                  cnp:response.CNP, 
+                  data_nasterii:response.birthDate,
+                  location:response.address,
+                  phone:response.phone,
+                  sex:response.sex,
+                  varsta:response.age,
+                  grupa_sange:response.bloodGroup
+                  
+               })
+        }).catch((error) => { console.log(error)}); 
 
-      this.setState({
-          // name:this.props.screenProps.displayName,
-          email:this.props.screenProps.email,
-         
-      })
     }
     componentDidUpdate(){
       
@@ -102,40 +79,51 @@ export default class Profile extends React.Component{
                 </View>            
                 <View style={styles.userInfoSection}>
                     <View style={styles.row}>
-                        <Ionicons name="location-outline" size={24} color="black" />
+                        <Ionicons name="location-outline" size={24} color="#e74c3c" />
                         <Text style={{fontSize:20,marginLeft:10,color:'#333',fontWeight:'300'}} >Adresa</Text>
                         <Text style={{color:"#2c3e50", marginLeft: 20,fontSize:20}}>{this.state.location}</Text>
                     </View>
                     <View style={styles.row}>
-                        <AntDesign name="phone" size={24} color="black" />
+                        <AntDesign name="phone" size={24} color="#8c7ae6" />
                         <Text style={{fontSize:20,marginLeft:10,color:'#333',fontWeight:'300'}} >Telefon</Text>
                         <Text style={{color:"#2c3e50", marginLeft: 20,fontSize:20}}>{this.state.phone}</Text>
                     </View>
                     <View style={styles.row}>
-                        <MaterialIcons name="alternate-email" size={24} color="black" />
+                        <MaterialIcons name="alternate-email" size={24} color="#0097e6" />
                         <Text style={{fontSize:20,marginLeft:10,color:'#333',fontWeight:'300'}} >Email:</Text>
                         <Text style={{color:"#2c3e50", marginLeft: 2,fontSize:20}}>{this.state.email}</Text>
                     </View>
                     <View style={styles.row}>
-                        <AntDesign name="idcard" size={24} color="black" />
+                        <AntDesign name="idcard" size={24} color="#2c3e50" />
                         <Text style={{fontSize:20,marginLeft:10,color:'#333',fontWeight:'300'}} >CNP</Text>
                         <Text style={{color:"#2c3e50", marginLeft: 20,fontSize:20}}>{this.state.cnp}</Text>
                     </View>
                     <View style={styles.row}>
-                        <FontAwesome name="intersex" size={24} color="black" />
+                        <FontAwesome name="birthday-cake" size={24} color="#9b59b6" />
+                        <Text style={{fontSize:20,marginLeft:10,color:'#333',fontWeight:'300'}} >Data nasterii</Text>
+                        <Text style={{color:"#2c3e50", marginLeft: 20,fontSize:20}}>{this.state.data_nasterii}</Text>
+                    </View>
+                    <View style={styles.row}>
+                        <MaterialCommunityIcons name="calendar-today" size={24} color="black" />
+                        <Text style={{fontSize:20,marginLeft:10,color:'#333',fontWeight:'300'}} >Varsta</Text>
+                        <Text style={{color:"#2c3e50", marginLeft: 20,fontSize:20}}>{this.state.varsta}</Text>
+                    </View>
+                    <View style={styles.row}>
+                        <FontAwesome name="intersex" size={24} color="#e67e22" />
                         <Text style={{fontSize:20,marginLeft:10,color:'#333',fontWeight:'300'}} >Sex</Text>
                         <Text style={{color:"#2c3e50", marginLeft: 20,fontSize:20}}>{this.state.sex}</Text>
                     </View>
                     <View style={styles.row}>
-                        <Fontisto name="doctor" size={24} color="black" />
-                        <Text style={{fontSize:20,marginLeft:10,color:'#333',fontWeight:'300'}} >Nume medic</Text>
-                        <Text style={{color:"#2c3e50", marginLeft: 20,fontSize:20}}>{this.state.numeMedic}</Text>
+                        <Fontisto name="blood-drop" size={24} color="#c0392b" />
+                        <Text style={{fontSize:20,marginLeft:10,color:'#333',fontWeight:'300'}} >Grupa sanguina</Text>
+                        <Text style={{color:"#2c3e50", marginLeft: 20,fontSize:20}}>{this.state.grupa_sange}</Text>
                     </View>
-                    <View style={styles.row}>
+  
+                    {/* <View style={styles.row}>
                         <MaterialCommunityIcons name="human" size={24} color="black" />
                         <Text style={{fontSize:20,marginLeft:10,color:'#333',fontWeight:'300'}} >Nume ingrijitor</Text>
                         <Text style={{color:"#2c3e50", marginLeft: 20,fontSize:20}}>{this.state.numeIngrijitor}</Text>
-                    </View>
+                    </View> */}
                 </View>
        
             <View style={styles.menuWrapper}>

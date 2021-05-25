@@ -19,133 +19,6 @@ import ProfileDoctor from './ProfileDoctor';
 import ProfileCaregiver from './ProfileCaregiver';
 
 
-
-/**
- *  Profile: {             
-                screen: userRol === "pacient" ? Profile : userRol === "doctor" ? ProfileDoctor : userRol === "caregiver" ? ProfileCaregiver : <></>,
-                navigationOptions: {          
-                    title: "Profil",
-                    drawerIcon: ({ tintColor }) => <Feather name="user" size={16} color={tintColor}></Feather>,
-                
-            
-            }
-        },
-        PersonalData: {
-            screen: userRol === "pacient" ? PersonalData : <> </>,
-            navigationOptions:{        
-                    title: "Date medicale",
-                    drawerIcon: ({ tintColor }) => <FontAwesome5 name="book-medical" size={24} color="black" />,
-                
-            }
-        },
-        AddData:{
-            screen:AddData,
-            navigationOptions:{
-                title:"Introdu date",
-                drawerIcon:({ tintColor }) => <AntDesign name="addfile" size={24} color="black" />
-            }
-        },
-        AvetiVreoProblema: {
-                screen: AvetiVreoProblema,
-                navigationOptions:{
-                
-                        title: "Aveti vreo problema ?",
-                        drawerIcon:({tintColor}) => <Octicons style = {styles.ReportProbleIcon} name="report" size={24} color="black" onPress = {()=> alert("DA")} ></Octicons>,
-                    
-                },
-        },
-        IntroduDiagnostic: {
-            screen: IntroduDiagnostic,
-            navigationOptions: {
-                title:"Introdu diagnostic",
-                drawerIcon:({tintColor}) => <MaterialIcons style = {styles.ReportProbleIcon} name="add-chart" size={24} color="black" onPress = {()=> alert("DA")} ></MaterialIcons>,
-
-            }
-        }
-
-        : userRol === "doctor" ? ProfileDoctor : userRol === "caregiver" ? ProfileCaregiver : <></>
-         : userRol === "caregiver" ? ProfileCaregiver : <></>
- */
-
-let screens = {}
-const evaluateRole = (userRol) =>{
-    switch(userRol){
-        case "pacient":
-            screens = {
-                
-            }
-            break;
-        case "doctor":
-            screens = {
-                Acasa: {
-                    screen: Acasa,
-                    navigationOptions:{
-                        title:"Acasa",
-                        drawerIcon:({ tintColor }) => <Feather name="home" size={24} color="black" />
-                    }
-                },
-                Profile: {             
-                    screen: ProfileDoctor,
-                    navigationOptions: {          
-                        title: "Profil",
-                        drawerIcon: ({ tintColor }) => <Feather name="user" size={16} color={tintColor}></Feather>,
-                    
-                
-                 }
-                },
-                IntroduDiagnostic: {
-                    screen: IntroduDiagnostic,
-                    navigationOptions: {
-                        title:"Introdu diagnostic",
-                        drawerIcon:({tintColor}) => <MaterialIcons style = {styles.ReportProbleIcon} name="add-chart" size={24} color="black" onPress = {()=> alert("DA")} ></MaterialIcons>,
-        
-                    }
-                }
-            }
-            break;
-        case "caregiver":
-                screens = {
-                    Acasa: {
-                        screen: Acasa,
-                        navigationOptions:{
-                            title:"Acasa",
-                            drawerIcon:({ tintColor }) => <Feather name="home" size={24} color="black" />
-                        }
-                    },
-                    Profile: {             
-                        screen: ProfileCaregiver,
-                        navigationOptions: {          
-                            title: "Profil",
-                            drawerIcon: ({ tintColor }) => <Feather name="user" size={16} color={tintColor}></Feather>,
-                        
-                    
-                        }
-                    },   
-                }
-                break;
-        default:
-            screens = {
-                Acasa: {
-                    screen: Acasa,
-                    navigationOptions:{
-                        title:"Acasa",
-                        drawerIcon:({ tintColor }) => <Feather name="home" size={24} color="black" />
-                    }
-                },
-                Profile: {             
-                    screen: Profile,
-                    navigationOptions: {          
-                        title: "Profil",
-                        drawerIcon: ({ tintColor }) => <Feather name="user" size={16} color={tintColor}></Feather>,
-                    
-                
-                    }
-                },
-            }
-            break;
-    }
-}
-
 const AppDrawerNavigatorForPatient = createDrawerNavigator({
     Acasa: {
         screen: Acasa,
@@ -272,16 +145,34 @@ export default class HomeScreen extends React.Component{
     }
     state = {
         email: "",
-        displayName:"",
-        userRol:this.props.role
+        nume:"",
+        prenume:"", 
+        userRole:""
 
     }
 
     componentDidMount() {
        
         const { email, displayName } = firebase.auth().currentUser;
-        this.setState({ email, displayName });
-        console.log(this.props.role);
+        console.log("email  din firebase :" +email);
+        fetch(`http://192.168.0.183:8080/users/${email}`, {
+            method: 'GET',
+            headers: {
+                 Accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            
+        }).then(response => response.json() )
+            .then(response=> {
+               this.setState({
+                  email:response.email, 
+                  prenume:response.firstName,
+                  nume:response.lastName,
+                  userRole:response.userRole
+               })
+        }).catch((error) => { console.log(error)}); 
+       
+        
         
     }
 
@@ -293,13 +184,13 @@ export default class HomeScreen extends React.Component{
         return (
                     
             <>
-                {this.state.userRol === "PACIENT"
-                ? (<HomePatient screenProps = {{displayName:this.state.displayName,email:this.state.email}}></HomePatient> )
-                : this.state.userRol === "DOCTOR"
-                ? (<HomeDoctor screenProps = {{displayName:this.state.displayName,email:this.state.email}}></HomeDoctor>)
-                : this.state.userRol ==="CAREGIVER" 
-                ?(<HomeCaregiver screenProps = {{displayName:this.state.displayName,email:this.state.email}}></HomeCaregiver>)
-                :(<HomeDefault screenProps = {{displayName:this.state.displayName,email:this.state.email}}></HomeDefault>)
+                {this.state.userRole === "PACIENT"
+                ? (<HomePatient screenProps = {{displayName:this.state.nume,displayPrenume:this.state.prenume,email:this.state.email}}></HomePatient> )
+                : this.state.userRole === "DOCTOR"
+                ? (<HomeDoctor screenProps = {{displayName:this.state.nume,displayPrenume:this.state.prenume,email:this.state.email}}></HomeDoctor>)
+                : this.state.userRole ==="CAREGIVER" 
+                ?(<HomeCaregiver screenProps = {{displayName:this.state.nume,displayPrenume:this.state.prenume,email:this.state.email}}></HomeCaregiver>)
+                :(<HomeDefault screenProps = {{displayName:this.state.nume,displayPrenume:this.state.prenume,email:this.state.email}}></HomeDefault>)
                 }
             </>      
         )

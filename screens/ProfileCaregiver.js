@@ -25,55 +25,8 @@ export default class ProfileCaregiver extends React.Component{
     // in functie de numele de la login
    async componentDidMount(){
      
-      let location ='';
-      let phone ='';
-      let sex ='';
-      let varsta = '';
-     
-      let options = {   headers: {'Accept':'application/json','Content-Type':'application/json'} }; 
-      // axios.get('http://192.168.0.183:8080/patients/'+this.state.email)
-      //   .then((response) => {
-      //     // handle success
-      //     // cnp = JSON.stringify(response.data.CNP);
-      //     // location = JSON.stringify(response.data.address);
-      //     phone = JSON.stringify(response.data.phone);
-      //     sex = JSON.stringify(response.data.sex);        
-       
-      //     idIngrijitor = JSON.stringify(response.data.caregiver_user_userId);
-          
-      //     this.setState({
-      //       location:JSON.stringify(response.data.address),
-      //       phone:phone,
-      //       sex:sex,
-      //       cnp:JSON.stringify(response.data.CNP)
-      //     })
-         
-      //   })
-      //   .catch((error) => console.log(error));
-
-    
-      //  axios('http://192.168.0.183:8080/patients/test100@test.com', {
-      //       method: 'GET',
-      //       headers: {
-      //           'Accept': 'application/json',
-      //           'Content-Type':'application/json'
-      //       }
-           
-            
-           
-      //   })
-      //   .then((response)=>console.log(response)
-      //   .catch((error) => { console.log(error)}));
-
-      this.setState({
-          // name:this.props.screenProps.displayName,
-          // email:this.props.screenProps.email,
-         
-      })
     }
-    componentDidUpdate(){
-      
-    }
+   
     render() {
         return (  
             <ImageBackground source={require('../assets/GREEN.png')} style={{flex:1}}>

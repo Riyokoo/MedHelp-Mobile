@@ -32,7 +32,7 @@ const Sidebar = props => {
         <ScrollView>
         <ImageBackground  source = {require("../assets/GREEN.png")} style={{ width: undefined, padding: 10, paddingTop: 10 }}>
             <Image source={require("../assets/profilePicture.jpg")} style={styles.profile} />
-            <Text style = {styles.welcomeMessage}>Bine ai revenit, {props.screenProps.displayName} !</Text>
+            <Text style = {styles.welcomeMessage}>Bine ai revenit, {props.screenProps.displayName}!</Text>
         </ImageBackground>               
         
         <View>

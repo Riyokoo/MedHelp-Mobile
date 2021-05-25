@@ -14,12 +14,38 @@ export default class RegisterScreen extends React.Component{
         password: "",
         re_password: "",
         role: "",
+        cnp:"",
+        data_nasterii:"",
+        adresa:"",
+        telefon:"",
+        sex:" ",
+        varsta:"",
+        grupa_sange:" ",
+
+        //doctor
+        //fara anumite componente
+        seal_number:"",
+        specializare:"",
+        experienta:"",
+
+        //ingrijitor
+        //fara anumite componente
         nume_eroare: "",
         prenume_eroare: "",
         email_eroare: "",
         password_eroare: "",
         re_password_eroare: "",
         role_eroare:"",
+        cnp_eroare:"",   
+        adresa_eroare:"",
+        telefon_eroare:"",
+        sex_eroare:"",   
+        grupa_sange_eroare:"",
+
+        seal_number_error:"",
+        specializare_error:"",
+        experienta_error:"",
+
     };
     
     
@@ -131,42 +157,209 @@ export default class RegisterScreen extends React.Component{
         if (this.state.password != "" && this.state.re_password != "") {
              if (this.state.password !== this.state.re_password) {
             this.setState({ password_eroare: "Cele 2 parole nu coincid !" });
+            }   
         }
+        //VERIFICA DACA CNP ESTE VALID
+        console.log(this.state.cnp.toString().charAt(0));
+        if (this.state.cnp === "")
+        {
+            this.setState({ cnp_eroare: "* Acest camp este obligatoriu" });
+        }else if (this.state.cnp !== "") {
+            if(this.state.cnp.toString().length <= 12){
+                if (parseInt(this.state.cnp.toString().charAt(0)) !== 1 || parseInt(this.state.cnp.toString().charAt(0)) !== 2 || parseInt(this.state.cnp.toString().charAt(0)) !== 5|| parseInt(this.state.cnp.toString().charAt(0)) !== 6) {
+                     if(parseInt(this.state.cnp.toString().substring(3,5) ) > 12)
+                         if(parseInt(this.state.cnp.toString().substring(5,7))  >31)
+                            this.setState({cnp_eroare:"* CNP invalid"}); 
+              
+                
+                     
+                }   
+                
+            }
+            this.setState({ cnp_eroare: "" });
         }
-    
+        if(this.state.cnp_eroare === ""){
+            var data_nasterii = new Date();
+            var anul_actual = parseInt(new Date().getFullYear().toString().substring(2,4));
+            var anul = 0;
+       
+             //data nasterii
+             if (parseInt(this.state.cnp.toString().charAt(0)) === 1 || parseInt(this.state.cnp.toString().charAt(0)) === 2 || parseInt(this.state.cnp.toString().charAt(0)) === 5|| parseInt(this.state.cnp.toString().charAt(0)) === 6){
+                if(parseInt(this.state.cnp.toString().substring(3,5) ) <= 12){
+                    if(parseInt(this.state.cnp.toString().substring(5,7))  <= 31)
+                        console.log(this.state.cnp.substring(5,7)+"/" +this.state.cnp.substring(3,5));
+                    }
+                }       
+                    if(parseInt(this.state.cnp.toString().charAt(0)) === 1 || parseInt(this.state.cnp.toString().charAt(0)) === 2){
+                        anul = 1900 + parseInt(this.state.cnp.toString().substring(1,3).toString());
+                    }else if((parseInt(this.state.cnp.toString().charAt(0)) === 5 || parseInt(this.state.cnp.toString().charAt(0)) === 6) && parseInt(this.state.cnp.toString().charAt(0)) < anul_actual  ){
+                        anul = 2000 + parseInt(this.state.cnp.toString().substring(1,3).toString());
+                    }
+                    var ziua = parseInt(this.state.cnp.substring(5,7));
+                    var luna = parseInt(this.state.cnp.substring(3,5));
+                    data_nasterii.setFullYear(anul,luna - 1,ziua);
+                    var varsta = new Date().getFullYear() - anul;
+                    this.setState({
+                        varsta:varsta,
+                        data_nasterii:data_nasterii.getFullYear() +"-"+data_nasterii.getMonth()+"-"+data_nasterii.getDay(),
+                    });
+                   
+        }
 
-    //   axios({
-    //     method: 'POST',
-    //       url: 'http://192.168.0.131:8080/users',
-    //       headers: {
-    //           'Accept': 'application/json',
-    //           'Content-Type':'application/json'
-    //       },
-    //       data: JSON.stringify({
-    //          username: this.state.nume,
-    //             firstName: this.state.nume,
-    //             lastName: this.state.prenume,
-    //             password: this.state.password,
-    //             email: this.state.email,
-    //             userRole: 'ADMIN'
-    //     })
-    //     }).then((response)=>console.log(response)).catch((error)=>console.log(error))
+        //VERIFICA DACA ADRESA ESTE VALIDA
+        if (this.state.adresa === "")
+        {
+            this.setState({ adresa_eroare: "* Acest camp este obligatoriu " });
+        }else 
+             this.setState({ adresa_eroare: "" });
+            
         
-    // fetch('http://192.168.0.183:8080/users/', {
-    //     method: 'POST',
-    //     headers: {
-    //         Accept: 'application/json',
-    //         'Content-Type': 'application/json'
-    //     },
-    //     body: JSON.stringify({
-    //         email: this.state.email,
-    //         firstName: this.state.nume,
-    //         lastName: this.state.prenume,
-    //         password: this.state.password,                
-    //         userRole: this.state.role
-           
-    //     })
-    // }).catch((error) => { console.log(error)}); 
+
+        //VERIFICA DACA TELEFONUL ESTE VALID
+        if (this.state.telefon === "")
+        {
+            this.setState({ telefon_eroare: "* Acest camp este obligatoriu " });
+        }else if (this.state.telefon !== "") {
+             if (this.state.telefon.length < 0 ) {
+                this.setState({ telefon_eroare: "* Telefon invalid " });
+        
+            }
+             else {
+                 this.setState({ telefon_eroare: "" });
+            }
+        }
+
+        //VERIFICA EXPERIENTA MEDIC 
+        if (this.state.experienta === "")
+        {
+            this.setState({ experienta_error: "* Acest camp este obligatoriu " });
+        }else if (this.state.experienta !== "") {
+             if (this.state.experienta.length < 0 ) {
+                this.setState({ experienta_error: "* Telefon invalid " });
+        
+            }
+             else {
+                 this.setState({ experienta_error: "" });
+            }
+        }
+
+        //VERIFICA NUMARUL de sigiliu medic
+
+        if (this.state.seal_number === "")
+        {
+            this.setState({ seal_number_error: "* Acest camp este obligatoriu " });
+        }else if (this.state.seal_number !== "") {
+             if (this.state.seal_number.length < 0 ) {
+                this.setState({ seal_number_error: "* Telefon invalid " });
+        
+            }
+             else {
+                 this.setState({ seal_number_error: "" });
+            }
+        }
+
+        //verifica daca specializarea este valida
+        if (this.state.specializare === "")
+        {
+            this.setState({ specializare_error: "* Acest camp este obligatoriu " });
+        }else if (this.state.specializare !== "") {
+             if ((/^([a-zA-Z]{3,})$/).test(this.state.specializare) === false) {
+                this.setState({ specializare_error: "* Nume invaliad " });
+        
+            }
+             else {
+                 this.setState({ specializare_error: "" });
+            }
+        }
+
+        //VERIFICA DACA SEXUL ESTE VALID
+        if (this.state.sex === "")
+        {
+            this.setState({ sex_eroare: "* Va rugam selectati categoria de sex !" });
+        }
+        else {
+            this.setState({ sex_eroare: "" });
+        }
+
+
+        //VERIFICA DACA GRUPA DE SANGE ESTE VALIDA
+        if (this.state.grupa_sange === "")
+        {
+            this.setState({ grupa_sange_eroare: "* Va rugam selectati categoria de sex !" });
+        }
+        else {
+            this.setState({ grupa_sange_eroare: "" });
+        }
+        
+    fetch('http://192.168.0.183:8080/users/', {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            email: this.state.email,
+            firstName: this.state.nume,
+            lastName: this.state.prenume,
+            password: this.state.password,                
+            userRole: this.state.role        
+        })
+    }).catch((error) => { console.log(error)}); 
+
+    switch(this.state.role){
+        case "PACIENT":
+            fetch(`http://192.168.0.183:8080/patients/${this.state.email}`, {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                     CNP:this.state.cnp,
+                     birthDate:this.state.data_nasterii,
+                     address:this.state.adresa,
+                     phone:this.state.telefon,
+                     sex:this.state.sex,
+                     age:this.state.varsta,                   
+                     bloodGroup:this.state.grupa_sange              
+                })
+            }).catch((error) => { console.log(error)}); 
+            break;
+        case "DOCTOR":
+            fetch(`http://192.168.0.183:8080/doctors/${this.state.email}`, {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                sealNumber:this.state.seal_number,
+                officeAddress:this.state.adresa,
+                experience:this.state.experienta,
+                specialization:this.state.specializare,
+                age:this.state.varsta,
+                birthDate:this.state.data_nasterii,
+                phone:this.state.telefon             
+            })
+            }).catch((error) => { console.log(error)}); 
+            break;
+        case "CAREGIVER":
+            fetch(`http://192.168.0.183:8080/caregivers/${this.state.email}`, {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                phone:this.state.telefon,
+                birthDate:this.state.data_nasterii,
+                age:this.state.varsta,
+                address:this.state.adresa             
+            })
+            }).catch((error) => { console.log(error)}); 
+            break;
+        }    
+
      if ((/^([a-zA-Z]{3,})$/).test(this.state.nume) &&
            (/^([a-zA-Z]{3,})$/).test(this.state.prenume) &&
            emailRegex.test(this.state.email) &&
@@ -191,7 +384,174 @@ export default class RegisterScreen extends React.Component{
      
 
     //this.setState({ errorMessage: error.message })
+    renderSwitch(role){
+        switch(role){
+            case "PACIENT":
 
+                return (
+                    <View style={{flex:1}}>
+                       
+                    <View style = {styles.form}>
+                        <View>
+                                <View >
+                                    <Text style={styles.inputTitle}>Adresa</Text>
+                                    <Text style={{ fontSize: 12, color:'red' }}>{this.state.adresa_eroare}</Text>
+                                </View>
+                            <TextInput
+                                style={styles.input}
+                                
+                                autoCapitalize="none"
+                                onChangeText={adresa => this.setState({ adresa })}
+                                value = {this.state.adresa}
+                            ></TextInput>
+                        </View>
+                    </View>
+               
+                    <View style={styles.role}>
+                        <View>
+                            <Text style={styles.inputTitle}>Sex</Text>
+                            <Text style={{ fontSize: 12, color:'red' }}>{this.state.sex_eroare}</Text>
+                        </View>
+                        <RadioButton.Group onValueChange = {sex => this.setState({sex:sex})}  value={this.state.sex}>
+                                <View style={[{display:"flex"},{flexDirection:'row'}]}>
+                                    <RadioButton  value="M" />
+                                    <Text style = {{alignSelf:"center"}}>Masculin</Text>
+                                </View>
+                                <View style={[{display:"flex"},{flexDirection:'row'}]}>
+                                    <RadioButton value="F" />
+                                    <Text style = {{alignSelf:"center"}}>Feminin</Text>
+                                </View>             
+                        </RadioButton.Group>
+                    </View>
+                    <View style={styles.role}>
+                        <View>
+                            <Text style={styles.inputTitle}>Grupa sanguina</Text>
+                            <Text style={{ fontSize: 12, color:'red' }}>{this.state.grupa_sange_eroare}</Text>
+                        </View>
+                        <RadioButton.Group onValueChange = {grupa_sange => this.setState({grupa_sange:grupa_sange})}  value={this.state.grupa_sange}>
+                                <View style={[{display:"flex"},{flexDirection:'row'}]}>
+                                    <RadioButton  value="A" />
+                                    <Text style = {{alignSelf:"center"}}>A</Text>
+                                </View>
+                                <View style={[{display:"flex"},{flexDirection:'row'}]}>
+                                    <RadioButton value="B" />
+                                    <Text style = {{alignSelf:"center"}}>B</Text>
+                                </View>   
+                                <View style={[{display:"flex"},{flexDirection:'row'}]}>
+                                    <RadioButton value="AB" />
+                                    <Text style = {{alignSelf:"center"}}>AB</Text>
+                                </View>   
+                                <View style={[{display:"flex"},{flexDirection:'row'}]}>
+                                    <RadioButton value="0" />
+                                    <Text style = {{alignSelf:"center"}}>0</Text>
+                                </View>             
+                        </RadioButton.Group>
+                    </View> 
+                </View>
+                )
+            case "DOCTOR":
+                return (
+                    <View style={{flex:1}}>
+                        <View style = {styles.form}>
+                            <View>
+                                    <View >
+                                        <Text style={styles.inputTitle}>Adresa CABINET</Text>
+                                        <Text style={{ fontSize: 12, color:'red' }}>{this.state.adresa_eroare}</Text>
+                                    </View>
+                                <TextInput
+                                    style={styles.input}
+                                    
+                                    autoCapitalize="none"
+                                    onChangeText={adresa => this.setState({ adresa })}
+                                    value = {this.state.adresa}
+                                ></TextInput>
+                            </View>
+                        </View>
+
+                        <View style = {styles.form}>
+                            <View>
+                                    <View >
+                                        <Text style={styles.inputTitle}>Specializare</Text>
+                                        <Text style={{ fontSize: 12, color:'red' }}>{this.state.specializare_error}</Text>
+                                    </View>
+                                    <TextInput
+                                        style={styles.input}
+                                        
+                                        autoCapitalize="none"
+                                        onChangeText={specializare => this.setState({ specializare })}
+                                        value = {this.state.specializare}
+                                    ></TextInput>
+                            </View>
+                        </View>
+
+                        <View style = {styles.form}>
+                            <View>
+                                <View >
+                                    <Text style={styles.inputTitle}>Experienta</Text>
+                                    <Text style={{ fontSize: 12, color:'red' }}>{this.state.experienta_error}</Text>
+                                </View>
+                                <TextInput
+                                    style={styles.input}
+                                    
+                                    keyboardType='numeric'
+                                    autoCapitalize="none"
+                                    onChangeText={experienta => this.setState({ experienta })}
+                                    value = {this.state.experienta}
+                                ></TextInput>
+                            </View>
+                        </View>
+
+                        <View style = {styles.form}>
+                            <View>
+                                <View >
+                                    <Text style={styles.inputTitle}>Numar sigiliu</Text>
+                                    <Text style={{ fontSize: 12, color:'red' }}>{this.state.seal_number_error}</Text>
+                                </View>
+                                <TextInput
+                                    style={styles.input}
+                                    maxLength={8}
+                                    keyboardType='numeric'
+                                    autoCapitalize="none"
+                                    onChangeText={seal_number => this.setState({ seal_number })}
+                                    value = {this.state.seal_number}
+                                ></TextInput>
+                            </View>
+                        </View>
+                        
+                    </View>
+                )
+            case "CAREGIVER":
+                return(
+                    <View style={{flex:1}}>
+                        <View style = {styles.form}>
+                            <View>
+                                    <View >
+                                        <Text style={styles.inputTitle}>Adresa</Text>
+                                        <Text style={{ fontSize: 12, color:'red' }}>{this.state.adresa_eroare}</Text>
+                                    </View>
+                                <TextInput
+                                    style={styles.input}
+                                    
+                                    autoCapitalize="none"
+                                    onChangeText={adresa => this.setState({ adresa })}
+                                    value = {this.state.adresa}
+                                ></TextInput>
+                            </View>
+                        </View>
+                    </View>
+                )
+            case "":
+                return (<> 
+                        <Text style={styles.inputTitle} >Alegeti una din categorii</Text>
+                    </>
+                    )
+            default :
+                return (<> 
+                    <Text style={styles.inputTitle} >Alegeti una din categorii</Text>
+                </>
+                )
+        }
+    }
     render() {
 
        
@@ -268,7 +628,39 @@ export default class RegisterScreen extends React.Component{
                         </View>
                         
                     </View>
-
+                    <View style = {styles.form}>
+                        <View>
+                                <View >
+                                    <Text style={styles.inputTitle}>Telefon</Text>
+                                    <Text style={{ fontSize: 12, color:'red' }}>{this.state.telefon_eroare}</Text>
+                                </View>
+                            <TextInput
+                                style={styles.input}
+                                maxLength={10}
+                                keyboardType='numeric'
+                                autoCapitalize="none"
+                                onChangeText={telefon => this.setState({ telefon })}
+                                value = {this.state.telefon}
+                            ></TextInput>
+                        </View>
+                    </View>
+                    <View style = {styles.form}>
+                            <View>
+                                    <View >
+                                        <Text style={styles.inputTitle}>CNP</Text>
+                                        <Text style={{ fontSize: 12, color:'red' }}>{this.state.cnp_eroare}</Text>
+                                    </View>
+                                <TextInput
+                                    style={styles.input}
+                                
+                                    maxLength={13}
+                                    keyboardType='numeric'
+                                    autoCapitalize="none"
+                                    onChangeText={cnp => this.setState({ cnp })}
+                                    value = {this.state.cnp}
+                                ></TextInput>
+                            </View>
+                        </View>
                     <View style = {styles.form}>
                         <View>
                                 <View >
@@ -277,7 +669,7 @@ export default class RegisterScreen extends React.Component{
                                 </View>
                             <TextInput
                                 style={styles.input}
-                                secureTextEntry
+                                secureTextEntry={true}
                                 autoCapitalize="none"
                                 onChangeText={password => this.setState({ password })}
                                 value = {this.state.password}
@@ -293,41 +685,36 @@ export default class RegisterScreen extends React.Component{
                                 </View>
                             <TextInput
                                 style={styles.input}
-                                secureTextEntry
+                                secureTextEntry={true}
                                 autoCapitalize="none"
                                 onChangeText={re_password => this.setState({ re_password })}
                                 value = {this.state.re_password}
                             ></TextInput>
                         </View>
                     </View>
-
-                    
-                        <View style={styles.role}>
-                             <View>
-                            <Text style={styles.inputTitle}>Categorie</Text>
+                    <View style={styles.role}>
+                            <View>
+                                <Text style={styles.inputTitle}>Categorie</Text>
                                 <Text style={{ fontSize: 12, color:'red' }}>{this.state.role_eroare}</Text>
-                        </View>
-
-                     <RadioButton.Group onValueChange = {Role => this.setState({role:Role})}  value={this.state.role}>
-                        <View style={[{display:"flex"},{flexDirection:'row'}]}>
-                            <RadioButton  value="DOCTOR" />
-                            <Text style = {{alignSelf:"center"}}>Medic</Text>
-                        </View>
-                        <View style={[{display:"flex"},{flexDirection:'row'}]}>
-                            <RadioButton value="CAREGIVER" />
-                             <Text style = {{alignSelf:"center"}}>Ingrijitor</Text>
-                        </View>
-                        <View style={[{display:"flex"},{flexDirection:'row'}]}>
-                            <RadioButton value="PACIENT" />
-                            <Text style = {{alignSelf:"center"}}>Pacient</Text>
                             </View>
-                            
-                    </RadioButton.Group>
+
+                        <RadioButton.Group onValueChange = {Role => this.setState({role:Role})}  value={this.state.role}>
+                            <View style={[{display:"flex"},{flexDirection:'row'}]}>
+                                <RadioButton  value="DOCTOR" />
+                                <Text style = {{alignSelf:"center"}}>Medic</Text>
+                            </View>
+                            <View style={[{display:"flex"},{flexDirection:'row'}]}>
+                                <RadioButton value="CAREGIVER" />
+                                <Text style = {{alignSelf:"center"}}>Ingrijitor</Text>
+                            </View>
+                            <View style={[{display:"flex"},{flexDirection:'row'}]}>
+                                <RadioButton value="PACIENT" />
+                                <Text style = {{alignSelf:"center"}}>Pacient</Text>
+                                </View>
+                                
+                        </RadioButton.Group>
                        </View>
-
-                    
-                
-
+                   {this.renderSwitch(this.state.role)}
                 <TouchableOpacity style = {styles.button} onPress = {this.handleSignUp}>
                     <Text style = {{color:"#FFF", fontWeight:"500"}} >Sign up</Text>
                 </TouchableOpacity>

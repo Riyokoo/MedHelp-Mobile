@@ -39,7 +39,7 @@ if (!firebase.apps.length) {
 
 const AppStack = createStackNavigator({
   Home:{
-    screen:()=>(<HomeScreen role={"CAREGIVER"} />),
+    screen:HomeScreen,
     navigationOptions: ( { navigation }) => {
       return {
          headerTitle: () => (<Header navigation={navigation} title='Home' />),
@@ -48,9 +48,6 @@ const AppStack = createStackNavigator({
     },
   
 })
-handleRole = (role) =>{
-   
-} 
 
 //screen: props =>  <LoginScreen  sendRole={()=>this.handleRole()} />
 const AuthStack = createStackNavigator({

@@ -80,7 +80,7 @@ export default class PersonalData extends React.Component{
                                 <TouchableOpacity onPress={() =>this.date_medicalePress()}>                                   
                                     <Image source={require("../assets/medical_dates.png")}  style={{ width: 120,height:120,marginLeft:20}} />
                                 </TouchableOpacity>                        
-                                <View style={{flex:0,flexDirection:'row',marginLeft:-40, justifyContent:'space-between'}}>
+                                <View style={{flex:0,flexDirection:'row',marginLeft:0, justifyContent:'space-between'}}>
                                     <MaterialCommunityIcons name="temperature-celsius" size={24} color="black"  />
                                     <FontAwesome name="heartbeat" size={24} color="#d63031" />
                                     <MaterialCommunityIcons name="weight-kilogram" size={24} color="black" />
@@ -94,7 +94,7 @@ export default class PersonalData extends React.Component{
                                 <TouchableOpacity onPress={() =>this.date_ambientalePress()}>
                                     <Image source={require("../assets/growth.png")}  style={{ width: 120,height:120,marginLeft:20}} />
                                 </TouchableOpacity>                        
-                                <View style={{flex:0,flexDirection:'row',marginLeft:-40, justifyContent:'space-between'}}>
+                                <View style={{flex:0,flexDirection:'row',marginLeft:0, justifyContent:'space-between'}}>
                                     <MaterialCommunityIcons name="temperature-celsius" size={24} color="black"  />
                                     <Ionicons name="water" size={24} color="#2980b9"/>
                                     <FontAwesome name="fire" size={24} color="#d35400" />

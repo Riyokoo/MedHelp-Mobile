@@ -47,13 +47,13 @@ export default class LoginScreen extends React.Component{
                   userRole:response.userRole,
                   password:response.password,
                },()=>{
-                console.log(this.state.userRole + "password : " + this.state.password);
+                console.log(this.state.userRole + " password : " + this.state.password);
             })
         }).catch((error) => { console.log(error)}); 
         
         if(this.state.verify_password === this.state.password){
             
-             this.props.sendRole(this.state.userRole);
+            //  this.props.sendRole(this.state.userRole);
            
         }
         //   axios('http://192.168.0.183:8080/users/emanuel.caprariu@test.com', {
@@ -102,7 +102,7 @@ export default class LoginScreen extends React.Component{
                 console.log("keyboard dismiss");
             }}>
             <View style = {styles.container}>
-                <Text style={styles.greeting}>{this.state.userRole}</Text>
+                <Text style={styles.greeting}>Bine ati venit!</Text>
                 
                 <View style = {styles.errorMessage}>
                     {this.state.errorMessage && <Text style = {styles.error}>{this.state.errorMessage}</Text>}

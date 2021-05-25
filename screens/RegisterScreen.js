@@ -178,8 +178,8 @@ export default class RegisterScreen extends React.Component{
             }
             this.setState({ cnp_eroare: "" });
         }
-        if(this.state.cnp_eroare === ""){
-            var data_nasterii = new Date();
+        if(this.state.cnp !== ""){
+           
             var anul_actual = parseInt(new Date().getFullYear().toString().substring(2,4));
             var anul = 0;
        
@@ -195,14 +195,7 @@ export default class RegisterScreen extends React.Component{
                     }else if((parseInt(this.state.cnp.toString().charAt(0)) === 5 || parseInt(this.state.cnp.toString().charAt(0)) === 6) && parseInt(this.state.cnp.toString().charAt(0)) < anul_actual  ){
                         anul = 2000 + parseInt(this.state.cnp.toString().substring(1,3).toString());
                     }
-                    var ziua = parseInt(this.state.cnp.substring(5,7));
-                    var luna = parseInt(this.state.cnp.substring(3,5));
-                    data_nasterii.setFullYear(anul,luna - 1,ziua);
-                    var varsta = new Date().getFullYear() - anul;
-                    this.setState({
-                        varsta:varsta,
-                        data_nasterii:data_nasterii.getFullYear() +"-"+data_nasterii.getMonth()+"-"+data_nasterii.getDay(),
-                    });
+                   
                    
         }
 
@@ -305,6 +298,22 @@ export default class RegisterScreen extends React.Component{
             userRole: this.state.role        
         })
     }).catch((error) => { console.log(error)}); 
+    
+    var ziua = parseInt(this.state.cnp.substring(5,7));
+    var luna = parseInt(this.state.cnp.substring(3,5));
+    let age = (new Date().getFullYear() - anul);
+      console.log("varsta in pana mea : " + age);
+      let data_nasterii = new Date(anul,luna + 1,ziua,0,0,0,0);
+      console.log("data nasteiri " + data_nasterii.toLocaleDateString());          
+    this.setState({
+        varsta: age,
+        data_nasterii: (data_nasterii.getFullYear()+"-"+data_nasterii.getMonth+"-"+data_nasterii.getDate()),
+    });
+    console.log("cnp :" + this.state.cnp); 
+    console.log("data nasterii :" + this.state.data_nasterii); 
+    console.log("varsta :" + this.state.varsta); 
+    console.log("adresa :" + this.state.adresa); 
+    console.log("user role  :" + this.state.role); 
 
     switch(this.state.role){
         case "PACIENT":
@@ -316,11 +325,11 @@ export default class RegisterScreen extends React.Component{
                 },
                 body: JSON.stringify({
                      CNP:this.state.cnp,
-                     birthDate:this.state.data_nasterii,
+                     birthDate:data_nasterii,
                      address:this.state.adresa,
                      phone:this.state.telefon,
                      sex:this.state.sex,
-                     age:this.state.varsta,                   
+                     age:age,                   
                      bloodGroup:this.state.grupa_sange              
                 })
             }).catch((error) => { console.log(error)}); 
@@ -337,8 +346,8 @@ export default class RegisterScreen extends React.Component{
                 officeAddress:this.state.adresa,
                 experience:this.state.experienta,
                 specialization:this.state.specializare,
-                age:this.state.varsta,
-                birthDate:this.state.data_nasterii,
+                age:age,
+                birthDate:data_nasterii,
                 phone:this.state.telefon             
             })
             }).catch((error) => { console.log(error)}); 
@@ -352,9 +361,10 @@ export default class RegisterScreen extends React.Component{
             },
             body: JSON.stringify({
                 phone:this.state.telefon,
-                birthDate:this.state.data_nasterii,
-                age:this.state.varsta,
-                address:this.state.adresa             
+                birthDate:data_nasterii,
+                age:age,
+                address:this.state.adresa,
+                available:1             
             })
             }).catch((error) => { console.log(error)}); 
             break;
@@ -381,7 +391,7 @@ export default class RegisterScreen extends React.Component{
        
     }
     
-     
+    componentDidUpdate(){}
 
     //this.setState({ errorMessage: error.message })
     renderSwitch(role){
@@ -398,9 +408,7 @@ export default class RegisterScreen extends React.Component{
                                     <Text style={{ fontSize: 12, color:'red' }}>{this.state.adresa_eroare}</Text>
                                 </View>
                             <TextInput
-                                style={styles.input}
-                                
-                                autoCapitalize="none"
+                                style={styles.input}                             
                                 onChangeText={adresa => this.setState({ adresa })}
                                 value = {this.state.adresa}
                             ></TextInput>
@@ -460,8 +468,6 @@ export default class RegisterScreen extends React.Component{
                                     </View>
                                 <TextInput
                                     style={styles.input}
-                                    
-                                    autoCapitalize="none"
                                     onChangeText={adresa => this.setState({ adresa })}
                                     value = {this.state.adresa}
                                 ></TextInput>
@@ -476,8 +482,6 @@ export default class RegisterScreen extends React.Component{
                                     </View>
                                     <TextInput
                                         style={styles.input}
-                                        
-                                        autoCapitalize="none"
                                         onChangeText={specializare => this.setState({ specializare })}
                                         value = {this.state.specializare}
                                     ></TextInput>
@@ -491,10 +495,8 @@ export default class RegisterScreen extends React.Component{
                                     <Text style={{ fontSize: 12, color:'red' }}>{this.state.experienta_error}</Text>
                                 </View>
                                 <TextInput
-                                    style={styles.input}
-                                    
+                                    style={styles.input}                                   
                                     keyboardType='numeric'
-                                    autoCapitalize="none"
                                     onChangeText={experienta => this.setState({ experienta })}
                                     value = {this.state.experienta}
                                 ></TextInput>
@@ -504,14 +506,13 @@ export default class RegisterScreen extends React.Component{
                         <View style = {styles.form}>
                             <View>
                                 <View >
-                                    <Text style={styles.inputTitle}>Numar sigiliu</Text>
+                                    <Text style={styles.inputTitle}>Cod parafa</Text>
                                     <Text style={{ fontSize: 12, color:'red' }}>{this.state.seal_number_error}</Text>
                                 </View>
                                 <TextInput
                                     style={styles.input}
                                     maxLength={8}
                                     keyboardType='numeric'
-                                    autoCapitalize="none"
                                     onChangeText={seal_number => this.setState({ seal_number })}
                                     value = {this.state.seal_number}
                                 ></TextInput>
@@ -531,8 +532,6 @@ export default class RegisterScreen extends React.Component{
                                     </View>
                                 <TextInput
                                     style={styles.input}
-                                    
-                                    autoCapitalize="none"
                                     onChangeText={adresa => this.setState({ adresa })}
                                     value = {this.state.adresa}
                                 ></TextInput>
@@ -552,10 +551,7 @@ export default class RegisterScreen extends React.Component{
                 )
         }
     }
-    render() {
-
-       
-        
+    render() {  
         return (
             
             <ScrollView>
@@ -585,16 +581,10 @@ export default class RegisterScreen extends React.Component{
                                 </View>
                             <TextInput
                                 style={styles.input}
-                                autoCapitalize="none"
                                 onChangeText={nume => this.setState({ nume })}
                                 value = {this.state.name}
                             ></TextInput>
-                        </View>
-
-                        
-
-                       
-                        
+                        </View>            
                     </View>
 
                     <View style = {styles.form}>
@@ -604,8 +594,7 @@ export default class RegisterScreen extends React.Component{
                                     <Text style={{ fontSize: 12, color:'red' }}>{this.state.prenume_eroare}</Text> 
                                 </View>
                             <TextInput
-                                style={styles.input}
-                                autoCapitalize="none"
+                                style={styles.input}                              
                                 onChangeText={prenume => this.setState({ prenume })}
                                 value = {this.state.name}
                             ></TextInput>
@@ -638,7 +627,7 @@ export default class RegisterScreen extends React.Component{
                                 style={styles.input}
                                 maxLength={10}
                                 keyboardType='numeric'
-                                autoCapitalize="none"
+                               
                                 onChangeText={telefon => this.setState({ telefon })}
                                 value = {this.state.telefon}
                             ></TextInput>
@@ -655,7 +644,7 @@ export default class RegisterScreen extends React.Component{
                                 
                                     maxLength={13}
                                     keyboardType='numeric'
-                                    autoCapitalize="none"
+                                   
                                     onChangeText={cnp => this.setState({ cnp })}
                                     value = {this.state.cnp}
                                 ></TextInput>

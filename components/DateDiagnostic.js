@@ -9,15 +9,16 @@ export default class DateDiagnotisc extends React.Component {
     };
     state = {
             
-            numeMedic:"Nicolae Ioan",
-            diagnotisc:"febra serioasa",
-            observatii:"paracetamol de 3x pe zi,multe ceaiuri ",
+            numeMedic:"Valentin Branc",
+            diagnostic:"febra serioasa",
+            medicament:"paracetamol de 3x pe zi,multe ceaiuri ",
+            dozaj:"",
+            recomandari:"",
             date:new Date(),
             mode:'date',
             show:false,
             accept:false,
-            visible:this.props.visibleDateDiagnostic,
-            
+            visible:this.props.visibleDateDiagnostic,        
 
         }
         onChange = (event,selectedDate) =>{
@@ -42,7 +43,7 @@ export default class DateDiagnotisc extends React.Component {
             this.showMode('time');
         };
         acceptDiagnostic =() =>{
-            //aici vom trimite in baza de date acceptul pacientului / luat la cunostiinta
+            //aici vom trimite in baza de date acceptul pacientului / luat la cunostiinta           
             console.log("accept");
             Alert.alert(
                 "Diagnostic acceptat",
@@ -61,11 +62,26 @@ export default class DateDiagnotisc extends React.Component {
               );     
             
         }
-        componentWillMount(){
-            this.setState({
-                visible:this.props.visibleDateDiagnostic
-            })
-            console.log("from will mount : " + this.state.visible);
+        //${this.state.email}
+        componentDidMount(){
+            //aici vom selecta din DB
+            fetch(`http://192.168.0.183:8080/records/${this.state.email}`, {
+            method: 'GET',
+            headers: {
+                 Accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
+            
+            }).then(response => response.json() )
+            .then(response=> {
+                this.setState({
+                    diagnostic:response.diseaseName,
+                    medicament:response.medicines,
+                    dozaj:response.dosage,
+                    recomandari:response.recommendations
+                    
+                })
+            }).catch((error) => { console.log(error)}); 
         }
         componentDidUpdate(){
             
@@ -98,11 +114,19 @@ export default class DateDiagnotisc extends React.Component {
                             </View>   
                             <View style={[styles.items,{flexDirection:'column'}]}>
                                 <Text style={styles.textItem}> Diagnosticul prescris </Text>
-                                <Text style={styles.textItem}>{this.state.diagnotisc}</Text>
+                                <Text style={styles.textItem}>{this.state.diagnostic}</Text>
                             </View>  
                             <View style={[styles.items,{flexDirection:'column'}]}>
-                                <Text style={styles.textItem}> Observatii </Text>
-                                <Text style={styles.textItem}>{this.state.observatii}</Text>
+                                <Text style={styles.textItem}> Medicament </Text>
+                                <Text style={styles.textItem}>{this.state.medicament}</Text>
+                            </View>  
+                            <View style={[styles.items,{flexDirection:'column'}]}>
+                                <Text style={styles.textItem}> Dozaj </Text>
+                                <Text style={styles.textItem}>{this.state.dozaj}</Text>
+                            </View>  
+                            <View style={[styles.items,{flexDirection:'column'}]}>
+                                <Text style={styles.textItem}> Recomandari </Text>
+                                <Text style={styles.textItem}>{this.state.recomandari}</Text>
                             </View>  
                             <View  style={[styles.items,{flexDirection:'row',justifyContent:'space-around',marginRight:10}]}>
                                 {/* <Button title="Refuz" color={"#c0392b"} onPress={()=>this.refuzDiagnostic()} /> */}

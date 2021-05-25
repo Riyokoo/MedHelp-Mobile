@@ -12,13 +12,16 @@ export default class IntroduDiagnostic extends React.Component {
 
         this.state = {
             toggleModal:false,
+            email:this.props.screenProps.email,
+            nume:this.props.screenProps.displayName,
+            prenume:this.props.screenProps.displayPrenume,
         }
     };
 
     SchimbaVizibilitate() {
         this.setState({toggleModal:!this.state.toggleModal})
     }
-
+    
     render() {
         return(
 
@@ -27,7 +30,7 @@ export default class IntroduDiagnostic extends React.Component {
                             <MaterialIcons size={30} name = "menu"  />
                 </TouchableOpacity>
 
-                <IntroduDiagnosticModal showModal = {this.state.toggleModal} SchimbaVizibilitate={() => { this.SchimbaVizibilitate() }}></IntroduDiagnosticModal>
+                <IntroduDiagnosticModal email={this.state.email} nume={this.state.nume} prenume={this.state.prenume} showModal = {this.state.toggleModal} SchimbaVizibilitate={() => { this.SchimbaVizibilitate() }}></IntroduDiagnosticModal>
                 
                 <View style = {{flex:1}}>
                     <Text style={styles.sentence}>Aici puteti introduce un nou diagnostic pentru unul din pacientii dumneavoastra</Text>

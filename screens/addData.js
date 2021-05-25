@@ -33,67 +33,47 @@ export default class AddData extends React.Component{
     }
     incarcaDate = () =>{
 
-        console.log("data");
-        // axios.interceptors.request.use(request => {
-        //     console.log('Starting Request', JSON.stringify(request, null, 2))
-        //     return request
-        // });
-        // axios('http://192.168.0.183:8080/sensors/1', {
-        //     method: 'POST',
-        //     headers: {
-        //         'Accept': 'application/json',
-        //         'Content-Type':'application/json'
-        //     },
-        //     body: JSON.stringify({
-        //         bloodPressureDiastolic:this.state.tensMare                      
-        //     }),
-            
-           
-        // })
-        // .then((response)=>console.log(response)
-        // .catch((error) => { console.log(error)}));
-
-
+        
         //incarcare in functie de emailul pacientului 
         const options = {   headers: {'Accept':'application/json','Content-Type':'application/json'} }; 
        
-         
-        fetch('http://192.168.0.183:8080/sensors/1', {
-            method: 'POST',
-            headers: {
-                 Accept: 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                bloodPressureDiastolic:this.state.tensMica,
-                bloodPressureSystolic:this.state.tensMare,
-                pulse:this.state.puls,
-                bodyTemperature:this.state.tempCorp,
-                bodyWeight:this.state.greutate,
-                glycemia:this.state.glicemie,               
-                ambientTemperature:this.state.temp,              
-                humidity:this.state.umiditate,
-                date:this.state.date.getFullYear()+"-"+`${this.state.date.getDay() >=10 ? this.state.date.getMonth(): "0"+this.state.date.getDay() }`+"-"+`${this.state.date.getMonth() >=10 ? this.state.date.getMonth(): "0"+this.state.date.getMonth() }`,        
-            })
+        if(this.state.tensMare !== 0 && this.state.tensMica !== 0 && this.state.puls !== 0 && this.state.glicemie !== 0 && this.state.greutate !== 0 && this.state.glicemie !== 0 && this.state.tempCorp !== 0 && this.state.umiditate !== 0  ){ 
+            fetch('http://192.168.0.183:8080/sensors/1', {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    bloodPressureDiastolic:this.state.tensMica,
+                    bloodPressureSystolic:this.state.tensMare,
+                    pulse:this.state.puls,
+                    bodyTemperature:this.state.tempCorp,
+                    bodyWeight:this.state.greutate,
+                    glycemia:this.state.glicemie,               
+                    ambientTemperature:this.state.temp,              
+                    humidity:this.state.umiditate,
+                    date:this.state.date                  
+                })
 
-        }).then(response=>{
-            Alert.alert(
-                "Date inregistrate",
-                "Multumim pentru incarcarea datelor!",
-                [
-                  {
-                    text: "OK", 
-                    onPress: () => {
-                      
-                        this.setState({
-                            accept:true,
-                        })
+            }).then(response=>{
+                Alert.alert(
+                    "Date inregistrate",
+                    "Multumim pentru incarcarea datelor!",
+                    [
+                    {
+                        text: "OK", 
+                        onPress: () => {
+                            
+                            this.setState({
+                                accept:true,
+                            })
+                        }
                     }
-                  }
-                ]
-              );   
-        }).catch((error) => { console.log(error)}); 
-    
+                    ]
+                );   
+            }).catch((error) => { console.log(error)}); 
+        }
         //merge pana aici
     }
     onChangeDate = (date) =>{
@@ -135,8 +115,13 @@ export default class AddData extends React.Component{
                     <View style={styles.header}>
                        
                         <Image source={require("../assets/MedLife.png")} style={{flex:1,width:100,height:100,resizeMode:'contain'}}  />
-                        <Text style={{fontSize:18,textAlign:'left',color:'#333',letterSpacing:2}}>Introduceti date medicale </Text>
+                        <View style={{flex:1,flexDirection:'column'}}>
+                            <Text style={{fontSize:18,textAlign:'left',color:'#333',letterSpacing:2}}>Introduceti date medicale </Text>
+                            <Text style={{fontSize:10,textAlign:'left',color:'#333',letterSpacing:0}}>(datele sa nu fie 0)</Text>
+                        </View>
+                        
                     </View>
+                    
                 <ScrollView style={styles.container}>
                    
                     <View style={styles.content}>

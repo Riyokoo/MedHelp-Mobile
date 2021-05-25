@@ -12,12 +12,14 @@ export default class ProfileDoctor extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            name : 'Nicolae Ioan',
+            name : this.props.screenProps.displayName +" "+this.props.screenProps.displayPrenume,
             location:'Str. Lalelelor Nr12',
             phone:'0256123123',
-            email: 'vlad.ciuculescu@test.com',
-            sex:'M',
+            email: this.props.screenProps.email,
+            varsta:'',
+            data_nasterii:'',
             specializare:'plamani',
+            experienta:'',
             nrparafa:'232323',
             pacienti:[
                 {label:'Emanuel Caprariu',value:'Emanuel Caprariu'},
@@ -38,8 +40,35 @@ export default class ProfileDoctor extends React.Component{
     //in functie de mailul de la login
     // in functie de numele de la login
     componentDidMount(){
+        fetch(`http://192.168.0.183:8080/doctors/${this.state.email}`, {
+            method: 'GET',
+            headers: {
+                 Accept: 'application/json',
+                'Content-Type': 'application/json'
+            },
             
-     
+        }).then(response => response.json() )
+            .then(response=> {
+               this.setState({
+                  nrparafa:response.sealNumber, 
+                  data_nasterii:response.birthDate,
+                  location:response.officeAddress,
+                  phone:response.phone,
+                  specializare:response.specialization,
+                  varsta:response.age,
+                  experienta:response.experience
+                  
+               })
+        }).catch((error) => { console.log(error)});      
+        /**
+         *  "sealNumber":"2412XXXX",
+            "officeAddress":"Strada George Enescu",
+            "experience":"5",
+            "specialization":"Pediatrie",
+            "age":"44",
+            "birthDate":"1977-03-03",
+            "phone":"0723723132"
+         */
     }
     addPhoto = () =>{
 
@@ -72,8 +101,8 @@ export default class ProfileDoctor extends React.Component{
                     <View style={styles.userInfoSection}>
                         <View style={styles.row}>
                             <Ionicons name="location-outline" size={24} color="black" />
-                            <Text style={{fontSize:20,marginLeft:10,color:'#333',fontWeight:'300'}} >Adresa cabinet</Text>
-                            <Text style={{color:"#2c3e50", marginLeft: 20,fontSize:20}}>{this.state.location}</Text>
+                            <Text style={{fontSize:16,marginLeft:0,color:'#333',fontWeight:'300'}} >Adresa cabinet</Text>
+                            <Text style={{color:"#2c3e50", marginLeft: 3,fontSize:16}}>{this.state.location}</Text>
                         </View>
                         <View style={styles.row}>
                             <AntDesign name="phone" size={24} color="black" />
@@ -86,16 +115,26 @@ export default class ProfileDoctor extends React.Component{
                             <Text style={{color:"#2c3e50", marginLeft: 20,fontSize:20}}>{this.state.email}</Text>
                         </View>
                         <View style={styles.row}>
+                            <FontAwesome name="birthday-cake" size={24} color="#9b59b6" />
+                            <Text style={{fontSize:20,marginLeft:10,color:'#333',fontWeight:'300'}} >Data nasterii</Text>
+                            <Text style={{color:"#2c3e50", marginLeft: 20,fontSize:20}}>{this.state.data_nasterii}</Text>
+                        </View>
+                        <View style={styles.row}>
+                            <MaterialCommunityIcons name="calendar-today" size={24} color="black" />
+                            <Text style={{fontSize:20,marginLeft:10,color:'#333',fontWeight:'300'}} >Varsta</Text>
+                            <Text style={{color:"#2c3e50", marginLeft: 20,fontSize:20}}>{this.state.varsta}</Text>
+                        </View>
+                        <View style={styles.row}>
                             <AntDesign name="idcard" size={24} color="black" />
                             <Text style={{fontSize:20,marginLeft:10,color:'#333',fontWeight:'300'}} >NR PARAFA</Text>
                             <Text style={{color:"#2c3e50", marginLeft: 20,fontSize:20}}>{this.state.nrparafa}</Text>
                         </View>
                         <View style={styles.row}>
                             <FontAwesome name="intersex" size={24} color="black" />
-                            <Text style={{fontSize:20,marginLeft:10,color:'#333',fontWeight:'300'}} >Sex</Text>
-                            <Text style={{color:"#2c3e50", marginLeft: 20,fontSize:20}}>{this.state.sex}</Text>
+                            <Text style={{fontSize:20,marginLeft:10,color:'#333',fontWeight:'300'}} >Experienta</Text>
+                            <Text style={{color:"#2c3e50", marginLeft: 20,fontSize:20}}>{this.state.experienta}</Text>
                         </View>
-                        <View style={styles.row}>
+                        {/* <View style={styles.row}>
                             
                                 <Fontisto name="doctor" size={24} color="black" />
                                 <Text style={{fontSize:20,marginLeft:10,color:'#333',fontWeight:'300'}} >Lista cu pacienti</Text>                         
@@ -114,7 +153,7 @@ export default class ProfileDoctor extends React.Component{
                                         <Picker.Item label={item.label} value={item.value} />
                                     ))}
                                 </Picker>
-                        </View>
+                        </View> */}
                        
                     </View>
         

@@ -89,7 +89,7 @@ export default class DateIstoric extends React.Component{
                     <ScrollView style={{flex:1}}>
                           {/* Tensiune */}
                         <View style={styles.container}>
-                            <Text style={{fontSize:24,fontWeight:'200',color:'#000',textAlign:'center'}}>Tensiunea pe ultimele 7 zile</Text>
+                            <Text style={{fontSize:24,fontWeight:'200',color:'#000',textAlign:'center'}}>Tensiunea arteriala</Text>
                             <VictoryChart width={400}  height={400}  theme={VictoryTheme.material}  >
                                 <VictoryLegend 	
                                     title="Legenda"
@@ -110,7 +110,7 @@ export default class DateIstoric extends React.Component{
                         </View>
                         {/* Pulsul */}
                         <View style={styles.container}>
-                            <Text style={{fontSize:24,fontWeight:'200',color:'#000',textAlign:'center'}}>Pulsul pe ultimele 7 zile</Text>
+                            <Text style={{fontSize:24,fontWeight:'200',color:'#000',textAlign:'center'}}>Puls</Text>
                             <VictoryChart width={400} height={400} theme={VictoryTheme.material}
                                 domainPadding={{ y: 10 }}
                                 containerComponent={
@@ -130,7 +130,7 @@ export default class DateIstoric extends React.Component{
                         </View>
                         {/* Temperatura */}
                         <View style={styles.container}>
-                            <Text style={{fontSize:24,fontWeight:'200',color:'#000',textAlign:'center'}}>Temperatura corporala pe ultimele 7 zile</Text>
+                            <Text style={{fontSize:24,fontWeight:'200',color:'#000',textAlign:'center'}}>Temperatura corporala</Text>
                             <VictoryChart 
                                 width={400} 
                                 height={400} 
@@ -148,7 +148,7 @@ export default class DateIstoric extends React.Component{
 
                         {/* Glicemie */}
                         <View style={styles.container}>
-                            <Text style={{fontSize:24,fontWeight:'200',color:'#000',textAlign:'center'}}>Glicemia pe ultimele 7 zile</Text>
+                            <Text style={{fontSize:24,fontWeight:'200',color:'#000',textAlign:'center'}}>Glicemie</Text>
                             <VictoryChart 
                                 width={400} 
                                 height={400} 
@@ -175,7 +175,7 @@ export default class DateIstoric extends React.Component{
                         </View>
                         {/* Greutate */}
                         <View style={styles.container}>
-                            <Text style={{fontSize:24,fontWeight:'200',color:'#000',textAlign:'center'}}>Greutatea corporala pe ultimele 7 zile</Text>
+                            <Text style={{fontSize:24,fontWeight:'200',color:'#000',textAlign:'center'}}>Greutatea corporala</Text>
                             <VictoryChart                                   
                                     width={400} 
                                     height={400} 

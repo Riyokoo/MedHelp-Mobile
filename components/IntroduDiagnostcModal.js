@@ -113,9 +113,10 @@ export default class IntroduDiagnosticModal extends React.Component {
                                     style={{height: 50, width: 100}}
                                     onValueChange={(e) => { this.setState({pacient:e}) }}
                                  >
-                                <Picker.Item label = "Selectati pacientul" value = {"awd"} />
-                                <Picker.Item label="Vladi" value="Vladi" />
-                                <Picker.Item label="Manu" value="Manu" />
+                                    <Picker.Item label = "Selectati pacientul" value = {"awd"} />
+                                    <Picker.Item label="Emanuel Caprariu" value="Emanuel Caprariu" />
+                                    <Picker.Item label="Emi Capraru" value="Emi Capraru" />
+                                    <Picker.Item label="Vlad Ciuculescu" value="Vlad Ciuculescu" />
                                 </Picker>
                                 
                                 

@@ -10,10 +10,10 @@ export default class DateDiagnotisc extends React.Component {
     state = {
             
             numeMedic:"Valentin Branc",
-            diagnostic:"febra serioasa",
-            medicament:"paracetamol de 3x pe zi,multe ceaiuri ",
-            dozaj:"",
-            recomandari:"",
+            diagnostic:"Febra Serioasa",
+            medicament:"Paracetamol ",
+            dozaj:"3x pe zi ",
+            recomandari:"Ceaiuri fructe si multa odihna",
             date:new Date(),
             mode:'date',
             show:false,

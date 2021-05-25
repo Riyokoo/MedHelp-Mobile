@@ -13,11 +13,11 @@ export default class DateMedicale extends React.Component{
     }
     state = {
         medicalData:[
-            {title:"Tensiune arteriala",text:"Tensiunea arteriala inregistrata",value1:0,value2:0,text1:'SYS',text2:'DIA', function:(index)=>this.tensiuneArterialaPress(index),extended:false, index:0,nameIcon:'heartbeat',type:'font-awesome',color:'#c0392b', id:"bd7acbea-c1b1-46c2-aed5"},
-            {title:"Puls",text:"Pulsul inregistrat",value1:0,value2:null,text1:'PUL/Min',text2:null ,function:(index) => this.pulsPress(index),extended:false,index:1,nameIcon:'md-heart-outline',type:'ionicon',color:'#c0392b',id:"3ac68afc-c605-48d3-a4f8"},
-            {title:"Temperatură",text:"Temperatura corporala inregistrata",value1:0.0,value2:null,text1:'°C',text2:null,function:(index) => this.tempPress(index),extended:false,index:2,nameIcon:'thermometer-0',type:'font-awesome',color:'#f50',id:"58694a0f-3da1-471f-bd96"},
-            {title:"Glicemie",text:"Glicemia inregistrata",value1:0,value2:null,text1:'mg/DL',text2:null,function:(index) => this.glicemiePress(index),extended:false,index:3,nameIcon:'water',type:'ionicon',color:'#2980b9',id:"qbaig872-0h35-rxc1-8sio"},
-            {title:"Greutate",text:"Greutatea corporala  inregistrata",value1:0.0,value2:null,text1:'KG',text2:null,function:(index) => this.greutatePress(index),extended:false,index:4,nameIcon:'weight',type:'font-awesome-5',color:'#2c3e50',id:"eslrpmzv-d66c-eqqo-onkc"},
+            {title:"Tensiune arteriala",text:"Tensiunea arteriala inregistrata",value1:120,value2:80,text1:'SYS',text2:'DIA', function:(index)=>this.tensiuneArterialaPress(index),extended:false, index:0,nameIcon:'heartbeat',type:'font-awesome',color:'#c0392b', id:"bd7acbea-c1b1-46c2-aed5"},
+            {title:"Puls",text:"Pulsul inregistrat",value1:97,value2:null,text1:'PUL/Min',text2:null ,function:(index) => this.pulsPress(index),extended:false,index:1,nameIcon:'md-heart-outline',type:'ionicon',color:'#c0392b',id:"3ac68afc-c605-48d3-a4f8"},
+            {title:"Temperatură",text:"Temperatura corporala inregistrata",value1:36.6,value2:null,text1:'°C',text2:null,function:(index) => this.tempPress(index),extended:false,index:2,nameIcon:'thermometer-0',type:'font-awesome',color:'#f50',id:"58694a0f-3da1-471f-bd96"},
+            {title:"Glicemie",text:"Glicemia inregistrata",value1:80,value2:null,text1:'mg/DL',text2:null,function:(index) => this.glicemiePress(index),extended:false,index:3,nameIcon:'water',type:'ionicon',color:'#2980b9',id:"qbaig872-0h35-rxc1-8sio"},
+            {title:"Greutate",text:"Greutatea corporala  inregistrata",value1:80.8,value2:null,text1:'KG',text2:null,function:(index) => this.greutatePress(index),extended:false,index:4,nameIcon:'weight',type:'font-awesome-5',color:'#2c3e50',id:"eslrpmzv-d66c-eqqo-onkc"},
             {title:"Consultatii",text:"Data ultimei consultatii",value1:new Date().toLocaleDateString(),value2:null,text1:null,text2:null,function:(index) => this.consPress(index),extended:false,index:5,nameIcon:'clipboard',type:'ionicon',color:'#7f8c8d',id:"haq150ay-hi12-jh9j-k8ry"},          
         ],
         currentIndex:null,
